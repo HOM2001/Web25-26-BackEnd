@@ -65,8 +65,7 @@ function html_foot()
         <hr />
         <footer>
             Made with the amazing AWebWiz framework
-            <img src="./icon/awebwiz.png" alt="AWebWiz logo">
-        </footer>
+<footer>
 	</body>
 	</html>
 	<?php

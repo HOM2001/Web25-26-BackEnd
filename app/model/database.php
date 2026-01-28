@@ -8,7 +8,7 @@ function db_get_pdo()
     if( empty($pdo)  )
     {
         // echo "PDO " . __LINE__;
-        $pdo = new PDO( DATABASE_DSN, DATABASE_USERNAME, DATABASE_PASSWORD );
+        $pdo = new PDO( DATABASE_DSN, "root", "root" );
     }
 
     // echo "PDO " . __LINE__;
