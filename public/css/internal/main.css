@@ -12,6 +12,7 @@ a
     color:black;
 }
 
+
 div#txt
 {
     float:right;
@@ -211,4 +212,16 @@ span.compteur
 {
     border:4px blue dotted;
 }
+.btn-back {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+}
 
+.btn-back:hover {
+    background: #0056b3;
+}

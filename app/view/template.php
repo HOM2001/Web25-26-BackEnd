@@ -71,4 +71,7 @@ function html_foot()
 	<?php
 	return ob_get_clean();
 }
+function html_button_back(): string {
+    return '<button onclick="window.history.back();" class="btn-back"> Retour</button>';
+}
 

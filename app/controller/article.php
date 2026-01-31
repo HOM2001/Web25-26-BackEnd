@@ -11,6 +11,7 @@ function main_article():string
 	return join( "\n", [
 		html_head(get_menu()),
 		html_press_article($article_a),
+        html_button_back(),
 		html_foot(),
 	]);
 

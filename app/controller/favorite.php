@@ -1,6 +1,6 @@
 <?php
 
-function main_favorite()
+function main_favorite():string
 {
     // model
     $menu_a = get_menu();

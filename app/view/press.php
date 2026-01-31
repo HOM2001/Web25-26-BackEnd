@@ -29,13 +29,12 @@ HTML;
 
 function html_press_article($art_a)
 {
-    $media_src = MEDIA_PATH . $art_a["image_art"];
+    //$media_src = MEDIA_PATH . $art_a["image_art"];
     $out = <<< HTML
 <main>
     <article class="main_article">
         <h2>{$art_a["title_art"]}</h2>
-        <p><strong>{$art_a["hook_art"]}</strong></p>
-        <div class="img"><img src="$media_src" /></div>
+        <p><strong>{$art_a["hook_art"]}</strong></p>     
         <div>{$art_a["content_art"]}</div>
     </article>
 </main>
