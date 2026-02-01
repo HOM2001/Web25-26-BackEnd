@@ -53,20 +53,21 @@ SQL;
 
 function get_press_article($ident)
 {
-    $content_a = [];
-    $q = <<< SQL
-        SELECT * 
-        FROM `t_article` 
-        WHERE `ident_art` = :ident_art ;
-SQL;
-    $param_a = [
-        'ident_art' => $ident,
-    ];
-    $content_a = db_select_prepare($q, $param_a);
+    if (DATABASE_TYPE === "json") {
+        $content_s = file_get_contents('../asset/database/article.json');
+        $all_articles = json_decode($content_s, true);
 
-    // var_dump($content_a);
-    return $content_a[0];
+        foreach ($all_articles as $art) {
+            // On compare l'ID du JSON avec l'ID de l'URL
+            if ($art['id'] == $ident) {
+                return $art; // ON RETOURNE L'ARTICLE TROUVÉ
+            }
+        }
+        return []; // RIEN TROUVÉ
+    }
+
+    // SI MYSQL
+    $q = "SELECT * FROM `t_article` WHERE `ident_art` = :ident_art";
+    $res = db_select_prepare($q, ['ident_art' => $ident]);
+    return $res[0] ?? [];
 }
-
-// Don't Repeat Yourself
-//

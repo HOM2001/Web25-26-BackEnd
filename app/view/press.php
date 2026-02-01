@@ -4,38 +4,52 @@ function html_press_list_titles($press_a)
 {
     if(empty($press_a))
     {
-        return '';
+        return '<p>Aucun article disponible.</p>';
     }
 
-    $out = <<< HTML
-        <h2>Tous nos articles de presse</h2>
-HTML;
+    $out = "<h2>Tous nos articles de presse</h2>";
+    $out .= "<ul>";
 
-    $out .= <<< HTML
-        <ul class="">
-HTML;
-    foreach( $press_a as $item)
+    foreach($press_a as $item)
     {
-        $visual = $item['title'];
-        $ident_art = $item['ident_art'];
+
+        $visual = $item['title'] ?? 'Sans titre';
+
+
+        $ident_art = $item['ident_art'] ?? $item['id'] ?? 0;
+
         $out .= <<< HTML
-            <li><a href="?page=article&ident_art=$ident_art">$visual</a></li>
+            <li>
+                <a href="?page=article&ident_art=$ident_art">$visual</a>
+            </li>
 HTML;
     }
+
     $out .= "</ul>";
-    
+
     return $out;
 }
 
 function html_press_article($art_a)
 {
-    //$media_src = MEDIA_PATH . $art_a["image_art"];
+
+
+    $title   = $art_a["title_art"]   ?? $art_a["title"]    ?? "Titre inconnu";
+
+
+    $hook    = $art_a["hook_art"]    ?? $art_a["hook"]     ?? "";
+
+
+    $content = $art_a["content_art"] ?? $art_a["contents"] ?? "";
+
     $out = <<< HTML
 <main>
     <article class="main_article">
-        <h2>{$art_a["title_art"]}</h2>
-        <p><strong>{$art_a["hook_art"]}</strong></p>     
-        <div>{$art_a["content_art"]}</div>
+        <h2>{$title}</h2>
+        <p><strong>{$hook}</strong></p>     
+        <div class="article-content">
+            {$content}
+        </div>
     </article>
 </main>
 HTML;
