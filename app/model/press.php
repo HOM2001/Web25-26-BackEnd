@@ -53,10 +53,23 @@ SQL;
 
 function get_press_article($ident)
 {
-    $content_a = [];
+    // On gère le cas JSON
+    if (DATABASE_TYPE === "json") {
+        $content_s = file_get_contents('../asset/database/article.json');
+        $all_articles = json_decode($content_s, true);
+
+        foreach ($all_articles as $art) {
+            // Dans ton JSON c'est "id", pas "ident_art"
+            if ($art['id'] == $ident) {
+                return $art;
+            }
+        }
+        return [];
+    }
+
+    // Sinon, on exécute le code MySQL habituel
     $q = <<< SQL
-        SELECT * 
-        FROM `t_article` 
+        SELECT * FROM `t_article` 
         WHERE `ident_art` = :ident_art ;
 SQL;
     $param_a = [
@@ -64,8 +77,7 @@ SQL;
     ];
     $content_a = db_select_prepare($q, $param_a);
 
-    // var_dump($content_a);
-    return $content_a[0];
+    return $content_a[0] ?? [];
 }
 
 // Don't Repeat Yourself

@@ -16,11 +16,14 @@ HTML;
 HTML;
     foreach( $press_a as $item)
     {
-        $visual = $item['title'];
-        $ident_art = $item['ident_art'];
+        $visual = $item['title'] ?? 'Sans titre';
+
+
+        $ident_art = $item['ident_art'] ?? $item['id'];
         $out .= <<< HTML
             <li><a href="?page=article&ident_art=$ident_art">$visual</a></li>
 HTML;
+
     }
     $out .= "</ul>";
     
@@ -29,20 +32,31 @@ HTML;
 
 function html_press_article($art_a)
 {
-    //$media_src = MEDIA_PATH . $art_a["image_art"];
+    // On extrait les valeurs en gérant les deux formats possibles
+    // Format MySQL : title_art | Format JSON : title
+    $title   = $art_a["title_art"]   ?? $art_a["title"]    ?? "Titre inconnu";
+
+    // Format MySQL : hook_art | Format JSON : hook
+    $hook    = $art_a["hook_art"]    ?? $art_a["hook"]     ?? "";
+
+    // Format MySQL : content_art | Format JSON : contents (avec un s)
+    $content = $art_a["content_art"] ?? $art_a["contents"] ?? "";
+    var_dump($art_a);
+
     $out = <<< HTML
 <main>
     <article class="main_article">
-        <h2>{$art_a["title_art"]}</h2>
-        <p><strong>{$art_a["hook_art"]}</strong></p>     
-        <div>{$art_a["content_art"]}</div>
+        <h2>{$title}</h2>
+        <p><strong>{$hook}</strong></p>     
+        <div class="article-content">
+            {$content}
+        </div>
     </article>
 </main>
 HTML;
 
     return $out;
 }
-
 function html_search_form()
 {
     $out = <<< HTML
