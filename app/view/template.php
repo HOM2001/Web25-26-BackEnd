@@ -72,6 +72,12 @@ function html_foot()
 	return ob_get_clean();
 }
 function html_button_back(): string {
-    return '<button onclick="window.history.back();" class="btn-back"> Retour</button>';
+    ob_start();
+    ?>
+    <div class="container-btn">
+        <a href="?page=press" class="btn-back"> Retour aux articles</a>
+    </div>
+    <?php
+    return ob_get_clean();
 }
 

@@ -213,15 +213,24 @@ span.compteur
     border:4px blue dotted;
 }
 .btn-back {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 15px;
+    display: inline-block;
+    background-color: #28a745;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background 0.3s;
 }
 
 .btn-back:hover {
-    background: #0056b3;
+    background-color: #218838;
+    color: white;
+    text-decoration: none;
+}
+
+.container-btn {
+    text-align: left;
+    margin-bottom: 20px;
 }
