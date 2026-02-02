@@ -4,51 +4,24 @@
  * requête avec les titres des articles
  * @return array
  */
-function get_press_list_titles($keyword='')
+function get_press_list($keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
-    $content_a = [];
     switch(DATABASE_TYPE) {
         case "json":
             $content_s = file_get_contents('../asset/database/article.json');
             $content_a = json_decode($content_s, true);
-            break;
+
+
+            return array_slice($content_a, 0, $limit);
 
         case "MySql":
-            if( ! empty($keyword))
-            {
-                // requête préparée, avec un mot-clé
-                $q = <<< SQL
-                SELECT 
-                    title_art AS title,
-                    ident_art
-                FROM `t_article` 
-                WHERE 
-                    title_art LIKE :keyword
-                ORDER BY `date_art` DESC
-                LIMIT 10;
-SQL;
-                $p = [
-                    'keyword'   => "%$keyword%",
-                ];
-                $content_a = db_select_prepare($q, $p);
-                // var_dump($content_a);
-            }
-            else
-            {
-                // requête non préparée, pas de mot clé
-                $q = <<< SQL
-                SELECT 
-                    title_art AS title,
-                    ident_art
-                FROM `t_article` 
-                ORDER BY `date_art` DESC
-                LIMIT 10;
-SQL;
-                $content_a = db_select($q);
-            }
-            break;
-    };
-    return $content_a;
+
+            return get_sql($keyword, $order, $limit);
+
+        default:
+            return [];
+    }
+
 }
 
 function get_press_article($ident)
@@ -84,4 +57,48 @@ function get_press_article($ident)
     }
 
     return ["error" => "Article introuvable."];
+}
+function get_sql($keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+{
+    $p = [];
+    $where = "";
+
+
+    if (!empty($keyword)) {
+        $where = "WHERE title_art LIKE :keyword";
+        $p['keyword'] = "%$keyword%";
+    }
+
+    // 2. Logique de tri
+    switch ($order) {
+        case 'random':
+            $orderBy = "ORDER BY RAND()";
+            break;
+        case 'first': // Les tout premiers créés (ID 0, 1, 2...)
+            $orderBy = "ORDER BY ident_art ASC";
+            break;
+        case 'last':  // Les tout derniers créés (ID 2924, 2923...)
+            $orderBy = "ORDER BY ident_art DESC";
+            break;
+        case 'old':   // Les plus anciens par date
+            $orderBy = "ORDER BY date_art ASC";
+            break;
+        case 'recent':
+        default:      // Les plus récents par date
+            $orderBy = "ORDER BY date_art DESC";
+            break;
+    }
+
+    $q = <<< SQL
+        SELECT 
+            title_art AS title,
+            ident_art,
+            hook_art AS hook
+        FROM `t_article` 
+        $where
+        $orderBy
+        LIMIT $limit;
+SQL;
+
+    return (!empty($p)) ? db_select_prepare($q, $p) : db_select($q);
 }

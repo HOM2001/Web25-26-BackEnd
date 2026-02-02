@@ -6,7 +6,7 @@ function main_search():string
     $press_a = [];
     if( ! empty($_POST['keyword']))
     {
-        $press_a = get_press_list_titles($_POST['keyword']);
+        $press_a = get_press_list($_POST['keyword'],);
     }
 
     // view
