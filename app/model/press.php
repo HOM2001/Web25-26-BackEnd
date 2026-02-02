@@ -54,20 +54,34 @@ SQL;
 function get_press_article($ident)
 {
     if (DATABASE_TYPE === "json") {
+        // Range JSON : 1001 à 1020
+        if ($ident < 1001 || $ident > 1020) {
+            return ["error" => "L'ID $ident est invalide pour le format JSON. Le range possible est [1001 - 1020]."];
+        }
+
         $content_s = file_get_contents('../asset/database/article.json');
         $all_articles = json_decode($content_s, true);
 
         foreach ($all_articles as $art) {
-            // On compare l'ID du JSON avec l'ID de l'URL
             if ($art['id'] == $ident) {
-                return $art; // ON RETOURNE L'ARTICLE TROUVÉ
+                return $art;
             }
         }
-        return []; // RIEN TROUVÉ
+    } else {
+        // Range MySQL : 0 à 2924
+        if ($ident < 0 || $ident > 2924) {
+            return ["error" => "L'ID $ident est invalide pour MySQL. Le range possible est [0 - 2924]."];
+        }
+
+        $q = "SELECT * FROM `t_article` WHERE `ident_art` = :ident_art";
+        $res = db_select_prepare($q, ['ident_art' => $ident]);
+
+        if (empty($res)) {
+            return ["error" => "L'article n°$ident n'existe pas dans la base de données (ID supprimé ou manquant)."];
+        }
+
+        return $res[0];
     }
 
-    // SI MYSQL
-    $q = "SELECT * FROM `t_article` WHERE `ident_art` = :ident_art";
-    $res = db_select_prepare($q, ['ident_art' => $ident]);
-    return $res[0] ?? [];
+    return ["error" => "Article introuvable."];
 }

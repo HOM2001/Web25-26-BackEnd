@@ -2,7 +2,7 @@
 
 const MACHINE = "classe38"; // "classe38" ou  "home" ou ... ce qu'on veut
 
-const DATABASE_TYPE =  "json"; // "MySql";  // "csv" // "json"
+const DATABASE_TYPE =  "MySql"; // "MySql";  // "csv" // "json"
 const DATABASE_NAME = "press_2025_v04";
 
 switch(MACHINE) {

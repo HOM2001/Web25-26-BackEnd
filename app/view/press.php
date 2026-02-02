@@ -32,6 +32,17 @@ HTML;
 
 function html_press_article($art_a)
 {
+    if (isset($art_a['error'])) {
+        return <<< HTML
+        <main>
+            <div style="background: #fee; color: #b00; padding: 20px; border: 1px solid #b00; margin: 20px;">
+                <strong>Erreur :</strong> {$art_a['error']}
+                <br><br>
+                <a href="?page=press">Retour à la liste</a>
+            </div>
+        </main>
+HTML;
+    }
 
 
     $title   = $art_a["title_art"]   ?? $art_a["title"]    ?? "Titre inconnu";
@@ -42,10 +53,17 @@ function html_press_article($art_a)
 
     $content = $art_a["content_art"] ?? $art_a["contents"] ?? "";
 
+    $image_name   = $art_a["image_art"]  ?? "";
+    $media = "";
+    if (!empty($image_name)){
+        $media_path = MEDIA_PATH.$image_name;
+        $media  = "<div><img src={$media_path} alt={$title}></div>";
+    }
     $out = <<< HTML
 <main>
     <article class="main_article">
         <h2>{$title}</h2>
+            {$media}
         <p><strong>{$hook}</strong></p>     
         <div class="article-content">
             {$content}
