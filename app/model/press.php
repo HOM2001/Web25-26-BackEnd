@@ -58,15 +58,27 @@ function get_press_article($ident)
 
     return ["error" => "Article introuvable."];
 }
-function get_sql($keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+function get_sql($ident,$keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     $p = [];
-    $where = "";
+    $conditions = [];
 
 
     if (!empty($keyword)) {
-        $where = "WHERE title_art LIKE :keyword";
+        $conditions[] = "title_art LIKE :keyword";
         $p['keyword'] = "%$keyword%";
+    }
+
+
+    if ($ident !== null && $ident !== '') {
+        $conditions[] = "ident_art = :ident";
+        $p['ident'] = $ident;
+    }
+
+
+    $where = "";
+    if (!empty($conditions)) {
+        $where = "WHERE " . implode(" AND ", $conditions);
     }
 
     // 2. Logique de tri
@@ -102,3 +114,21 @@ SQL;
 
     return (!empty($p)) ? db_select_prepare($q, $p) : db_select($q);
 }
+function get_lead_article(){
+    return get_press_article(1);
+}
+function get_feature_article()
+{
+    foreach ([2,3,4] as $art_a) {
+        $art_aa [] = get_press_article($art_a);
+    }
+    return $art_aa;
+}
+function get_sidebar_article()
+{
+    foreach ([5] as $art_a) {
+        $art_aa [] = get_press_article($art_a);
+    }
+    return $art_aa;
+}
+
