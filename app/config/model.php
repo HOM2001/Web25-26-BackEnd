@@ -1,6 +1,6 @@
 <?php
 
-const MACHINE = "ASUS"; // ASUS ou MAC
+const MACHINE = "MAC"; // ASUS ou MAC
 
 const DATABASE_TYPE =  "MySql"; // "MySql";  // "csv" // "json"
 const DATABASE_NAME = "press_2025_v05";

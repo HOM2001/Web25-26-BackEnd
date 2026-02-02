@@ -17,8 +17,8 @@ $out = '<div class="container-home">';
 		<article class='article-phare'>
 			<div class='phare-content'>
 				<span class='badge'>À la une</span>
-				<h1>{$lead['title']}</h1>
-				<p>{$lead['hook']}</p>
+				<h1>{$lead['title_art']}</h1>
+				<p>{$lead['hook_art']}</p>
 				<a href='?page=article&ident_art=$id_lead' class='btn-phare'>Lire l'article complet</a>
 			</div>
 		</article>
