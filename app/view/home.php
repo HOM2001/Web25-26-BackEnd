@@ -1,100 +1,66 @@
 <?php
-/*
- * Display articles of the home page
- */
-function html_home_main($article_a	, array $bottom_article_a , array $secondary_article_a): string
+/**
+* Vue principale de la Home
+* @param array|null $lead       L'article phare (un seul tableau)
+* @param array      $features   Les 3 articles principaux (tableau de tableaux)
+* @param array      $sidebar    Le reste des articles (tableau de tableaux)
+*/
+function html_home($lead, $features, $sidebar)
 {
-	$title = htmlspecialchars($article_a['title'] ?? 'Titre inconnu');
-	$hook = htmlspecialchars($article_a['hook'] ?? '');
-	$art_id = (int)($article_a['id'] ?? 0);
+$out = '<div class="container-home">';
 
-	// Trouver l'article "Des films..."
-	$featured_article = null;
-	foreach ($bottom_article_a as $key => $article) {
-		if (stripos($article['title'], 'Des films') === 0) {
-			$featured_article = $article;
-			unset($bottom_article_a[$key]); // Retirer de la liste principale
-			break;
-		}
+	// --- 1. L'ARTICLE PHARE (LEAD) ---
+	if ($lead) {
+	$id_lead = $lead['ident_art'] ?? $lead['id'];
+	$out .= "
+	<section class='section-lead'>
+		<article class='article-phare'>
+			<div class='phare-content'>
+				<span class='badge'>À la une</span>
+				<h1>{$lead['title']}</h1>
+				<p>{$lead['hook']}</p>
+				<a href='?page=article&ident_art=$id_lead' class='btn-phare'>Lire l'article complet</a>
+			</div>
+		</article>
+	</section>";
 	}
 
-	ob_start();
-	?>
+	$out .= '<div class="main-layout">';
 
-	<br>
-	<div class="container mb-4">
-		<div class="card shadow-sm border-0">
-			<a href="?page=article&art_id=<?= $art_id ?>" style="text-decoration: none; color: inherit;">
-				<?php
-				$img = !empty($article_a['image_name'])
-					? '../public/media/' . $article_a['image_name']
-					: '../public/media/default.jpg';
-				?>
-				<img src="<?= htmlspecialchars($img) ?>"
-					 class="card-img-top"
-					 alt="Image principale"
-					 style="object-fit: cover; max-height: 260px; width: 100%;">
-				<div class="card-body p-3">
-					<h3 class="card-title mb-2" style="font-size: 1.5rem;"><?= htmlspecialchars($title) ?></h3>
-					<p class="card-text mb-0" style="font-size: 1rem;"><?= htmlspecialchars($hook) ?></p>
-				</div>
-			</a>
-		</div>
-	</div>
+		// --- 2. LES ARTICLES PRINCIPAUX (FEATURES) ---
+		$out .= '<section class="section-features">';
+			$out .= '<h2>À la une cette semaine</h2>';
+			$out .= '<div class="grid-features">';
+				foreach ($features as $art) {
+				$id = $art['ident_art'] ?? $art['id'];
+				$out .= "
+				<article class='card-feature'>
+					<h3>{$art['title']}</h3>
+					<p>{$art['hook']}</p>
+					<a href='?page=article&ident_art=$id'>En savoir plus →</a>
+				</article>";
+				}
+				$out .= '</div>';
+			$out .= '</section>';
 
+		// --- 3. LA SIDEBAR ---
+		$out .= '<aside class="section-sidebar">';
+			$out .= '<h3>Dernières minutes</h3>';
+			$out .= '<ul>';
+				foreach ($sidebar as $art) {
+				$id = $art['ident_art'] ?? $art['id'];
+				$out .= "
+				<li>
+					<a href='?page=article&ident_art=$id'>
+						<h4>{$art['title']}</h4>
+					</a>
+				</li>";
+				}
+				$out .= '</ul>';
+			$out .= '</aside>';
 
+		$out .= '</div>'; // Fin main-layout
+	$out .= '</div>'; // Fin container-home
 
-
-	<!-- Début de la liste d'articles -->
-	<div class="container">
-		<div class="row">
-
-			<!-- Article "Des films..." en premier (même style que les autres) -->
-			<?php if ($featured_article): ?>
-				<?php
-				$title = htmlspecialchars($featured_article['title']);
-				$img = htmlspecialchars($featured_article['image'] ?? 'default.jpg');
-				$id = (int)($featured_article['id'] ?? 0);
-				?>
-				<div class="col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="?page=article&art_id=<?= $id ?>" style="text-decoration: none; color: inherit;">
-							<img src="<?= $img ?>" class="card-img-top" alt="Image" style="object-fit: cover; height: 200px;">
-							<div class="card-body">
-								<h5 class="card-title"><?= $title ?></h5>
-								<p class="card-text"><?= strlen($featured_article['content']) ?> caractères</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			<?php endif; ?>
-
-			<!-- Tous les autres articles -->
-			<?php foreach ($bottom_article_a as $article): ?>
-				<?php
-				$title = htmlspecialchars($article['title']);
-				$img = !empty($article['image_name'])
-					? '../public/media/' . $article['image_name']
-					: '../public/media/default.jpg';
-				$id = (int)($article['id'] ?? 0);
-				?>
-				<div class="col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="?page=article&art_id=<?= $id ?>" style="text-decoration: none; color: inherit;">
-							<img src="<?= $img ?>" class="card-img-top" alt="Image" style="object-fit: cover; height: 200px;">
-							<div class="card-body">
-								<h5 class="card-title"><?= $title ?></h5>
-								<p class="card-text"><?= strlen($article['content']) ?> caractères</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			<?php endforeach; ?>
-
-		</div>
-	</div>
-
-	<?php
-	return ob_get_clean();
+return $out;
 }
-
