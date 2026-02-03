@@ -11,4 +11,11 @@ function get_menu()
     }
     return $menu_aa;
 }
+function limit_words($text, $limit) {
+    $words = explode(' ', $text);
+    if (count($words) > $limit) {
+        return implode(' ', array_slice($words, 0, $limit)) . '...';
+    }
+    return $text;
+}
 

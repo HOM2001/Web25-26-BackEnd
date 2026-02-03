@@ -71,10 +71,13 @@ function html_home($lead, $features, $sidebar)
     foreach ($sidebar as $art) {
         $id    = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
+        $hook  = $art['hook_art']  ?? $art['hook'] ?? "";
+        $hook_short = limit_words($hook, DEFAULT_LIMIT_SIDEBAR);
         $out .= "
                  <li>
                     <a href='?page=article&ident_art=$id'>
                        <h4>{$title}</h4>
+                       <p>{$hook_short}</p>
                     </a>
                  </li>";
     }
