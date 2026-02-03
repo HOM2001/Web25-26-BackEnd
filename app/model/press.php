@@ -87,7 +87,8 @@ function get_sql($order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
         SELECT 
             title_art AS title,
             ident_art,
-            hook_art AS hook
+            hook_art AS hook,
+            image_art
         FROM `t_article` 
         $orderBy
         LIMIT $limit;
@@ -95,21 +96,18 @@ SQL;
 
     return (!empty($p)) ? db_select_prepare($q, $p) : db_select($q);
 }
-function get_lead_article(){
-    return get_press_article(1);
+
+function get_lead_article($all_articles) {
+    return $all_articles[0] ?? null;
 }
-function get_feature_article()
-{
-    foreach ([2,3,4] as $art_a) {
-        $art_aa [] = get_press_article($art_a);
-    }
-    return $art_aa;
+
+//
+function get_feature_article($all_articles) {
+    return array_slice($all_articles, 1, 3);
 }
-function get_sidebar_article()
-{
-    foreach (range(5,DEFAULT_LIMIT) as $art_a) {
-        $art_aa [] = get_press_article($art_a);
-    }
-    return $art_aa;
+
+
+function get_sidebar_article($all_articles,$limit) {
+    return array_slice($all_articles, 4, $limit-4);
 }
 

@@ -2,8 +2,9 @@
 
 function main_press()
 {
+    $limit = 25 ?? DEFAULT_LIMIT;
     $menu_a = get_menu();
-    $press_a = get_press_list(DEFAULT_ORDER,DEFAULT_LIMIT);
+    $press_a = get_press_list(DEFAULT_ORDER,$limit);
 
     return join( "\n", [
         html_head($menu_a),
