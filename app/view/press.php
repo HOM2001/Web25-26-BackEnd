@@ -7,6 +7,7 @@ function html_press_list_titles($press_a)
         return '<p>Aucun article disponible.</p>';
     }
 
+
     $out = "<h2>Tous nos articles de presse</h2>";
     $out .= "<ul>";
 
@@ -62,6 +63,10 @@ HTML;
     $out = <<< HTML
 <main>
     <article class="main_article">
+      <nav class="breadcrumb">
+        <a href="?page=home">Accueil</a> <span>&gt;</span> 
+        <a href="?page=press">Articles</a> <span>&gt;</span> 
+      </nav>
         <h2>{$title}</h2>
             {$media}
         <p><strong>{$hook}</strong></p>     

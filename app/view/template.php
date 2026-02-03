@@ -71,13 +71,5 @@ function html_foot()
 	<?php
 	return ob_get_clean();
 }
-function html_button_back(): string {
-    ob_start();
-    ?>
-    <div class="container-btn">
-        <a href="?page=press" class="btn-back"> Retour aux articles</a>
-    </div>
-    <?php
-    return ob_get_clean();
-}
+
 

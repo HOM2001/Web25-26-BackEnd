@@ -4,7 +4,7 @@
  * requête avec les titres des articles
  * @return array
  */
-function get_press_list($keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+function get_press_list( $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     switch(DATABASE_TYPE) {
         case "json":
@@ -16,7 +16,7 @@ function get_press_list($keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_
 
         case "MySql":
 
-            return get_sql($keyword, $order, $limit);
+            return get_sql($order, $limit);
 
         default:
             return [];
@@ -58,28 +58,10 @@ function get_press_article($ident)
 
     return ["error" => "Article introuvable."];
 }
-function get_sql($ident,$keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+function get_sql($order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     $p = [];
-    $conditions = [];
 
-
-    if (!empty($keyword)) {
-        $conditions[] = "title_art LIKE :keyword";
-        $p['keyword'] = "%$keyword%";
-    }
-
-
-    if ($ident !== null && $ident !== '') {
-        $conditions[] = "ident_art = :ident";
-        $p['ident'] = $ident;
-    }
-
-
-    $where = "";
-    if (!empty($conditions)) {
-        $where = "WHERE " . implode(" AND ", $conditions);
-    }
 
     // 2. Logique de tri
     switch ($order) {
@@ -107,7 +89,6 @@ function get_sql($ident,$keyword = '', $order = DEFAULT_ORDER, $limit = DEFAULT_
             ident_art,
             hook_art AS hook
         FROM `t_article` 
-        $where
         $orderBy
         LIMIT $limit;
 SQL;
@@ -126,7 +107,7 @@ function get_feature_article()
 }
 function get_sidebar_article()
 {
-    foreach ([5] as $art_a) {
+    foreach (range(5,DEFAULT_LIMIT) as $art_a) {
         $art_aa [] = get_press_article($art_a);
     }
     return $art_aa;
