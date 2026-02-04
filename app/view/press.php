@@ -80,18 +80,5 @@ HTML;
     return $out;
 }
 
-function html_search_form()
-{
-    $out = <<< HTML
-<main>
-    <form method="post">
-        <label>Introduisez ici un mot-clé :</label>
-        <input name="keyword" type="text">
-        <button>search</button>    
-    </form>
-</main>
-HTML;
-    return $out;
 
-}
 

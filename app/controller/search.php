@@ -2,18 +2,21 @@
 
 function main_search():string
 {
-    // model
-    $press_a = [];
-    if( ! empty($_POST['keyword']))
-    {
-        $press_a = get_press_list($_POST['keyword'],);
-    }
 
-    // view
+    $keyword = $_GET['keyword'] ?? "";
+    $author  = $_POST['author']  ?? "";
+    $limit   = $_GET['limit']   ?? 10;
+
+    $results = search($keyword , $limit);
+
+    var_dump($keyword);
+    var_dump($results);
+
+
 	return join( "\n", [
 		html_head(get_menu()),
 		html_search_form(),
-        html_press_list_titles($press_a),
+        html_press_list_titles($results),
 		html_foot(),
 	]);
 
