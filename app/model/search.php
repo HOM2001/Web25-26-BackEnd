@@ -23,8 +23,7 @@ function search($keyword = '', $limit = 10)
             title_art AS title,
             ident_art,
             hook_art AS hook,
-            image_art,
-            author_art AS author
+            image_art
         FROM `t_article`
         $where_sql
         ORDER BY date_art DESC

@@ -14,7 +14,7 @@ function html_press_list_titles($press_a)
     foreach($press_a as $item)
     {
 
-        $visual = $item['title'] ?? 'Sans titre';
+        $visual = $item['title_art'] ?? $item['title'] ?? 'Sans titre';
 
 
         $ident_art = $item['ident_art'] ?? $item['id'] ?? 0;
