@@ -1,19 +1,19 @@
 <?php
 
-const MACHINE = "MAC"; // ASUS ou MAC
+const MACHINE = "MAMP"; // MAMP , WAMP
 
 const DATABASE_TYPE =  "MySql"; // "MySql";  // "csv" // "json"
 const DATABASE_NAME = "press_2025_v05";
 
 switch(MACHINE) {
 
-	case "ASUS":
-		define( "DATABASE_PORT", 3306 ); 	// ASUS
+	case "WAMP":
+		define( "DATABASE_PORT", 3306 );
 		define( "DATABASE_USERNAME", "root" );
 		define( "DATABASE_PASSWORD", "" );
 		break;
-	case "MAC":
-		define( "DATABASE_PORT", 3306 );  	// MAC
+	case "MAMP":
+		define( "DATABASE_PORT", 3306 );
 		define( "DATABASE_USERNAME", "root" );
 		define( "DATABASE_PASSWORD", "root" );
 		break;
