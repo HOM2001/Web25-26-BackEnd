@@ -221,3 +221,96 @@ form button {
         height: 250px; /* Plus petit sur téléphone */
     }
 }
+/* Container principal du panier */
+.panier-style {
+    background-color: #f9f9f9;
+    border: 2px dashed #d1d1d1;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.panier-style h2 {
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+
+/* Liste des articles */
+#panier_contenu {
+    list-style: none;
+    padding: 0;
+}
+
+#panier_contenu li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border-left: 5px solid #2ecc71; /* Petite barre verte type "achat" */
+    transition: transform 0.2s;
+}
+
+#panier_contenu li:hover {
+    transform: translateX(5px);
+}
+
+/* Détails du texte */
+#panier_contenu li strong {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+/* Temps de lecture (badge) */
+.read-time-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+/* Bouton supprimer [x] */
+.btn-remove-fav {
+    background: #ff4d4d;
+    color: white !important;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.btn-remove-fav:hover {
+    background: #cc0000;
+}
+
+/* Footer du panier (Total et Vider) */
+.total-pigeons {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+.btn-delete {
+    display: inline-block;
+    margin-top: 10px;
+    color: #888;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    color: red;
+    text-decoration: underline;
+}

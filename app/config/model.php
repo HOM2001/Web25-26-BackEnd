@@ -1,6 +1,6 @@
 <?php
 
-const MACHINE = "MAMP"; // MAMP , WAMP
+const MACHINE = "WAMP"; // MAMP , WAMP
 
 const DATABASE_TYPE =  "MySql"; // "MySql";  // "csv" // "json"
 const DATABASE_NAME = "press_2025_v05";
