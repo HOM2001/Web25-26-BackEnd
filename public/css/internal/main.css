@@ -1,4 +1,4 @@
-
+/* --- BASE & TYPOGRAPHIE --- */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     font-size: 16px;
@@ -26,6 +26,7 @@ hr {
     margin: 20px 0;
 }
 
+/* --- HEADER & MENU --- */
 header {
     background-color: #f0f8ff;
     padding: 10px 0;
@@ -42,7 +43,6 @@ h1 img {
     width: 50px;
     vertical-align: middle;
 }
-
 
 ul.menu {
     padding: 0;
@@ -69,13 +69,19 @@ ul.menu li a:hover, ul.menu li a.active {
     color: #3498db;
 }
 
+/* --- LAYOUT & CONTAINERS --- */
 .container-home {
     max-width: 1200px;
     margin: 20px auto;
     padding: 0 15px;
 }
 
+.main-layout {
+    display: flex;
+    gap: 30px;
+}
 
+/* --- ARTICLES PHARES & GRILLE HOME --- */
 .article-phare {
     display: flex;
     background: white;
@@ -86,23 +92,29 @@ ul.menu li a:hover, ul.menu li a.active {
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.media-phare { flex: 1.2; }
-.media-phare img { width: 100%; height: 100%; object-fit: cover; }
-.phare-content { flex: 1; padding: 40px; }
-.badge { background: #e74c3c; color: white; padding: 4px 10px; font-size: 0.75rem; border-radius: 3px; text-transform: uppercase; }
-
-
-.main-layout {
-    display: flex;
-    gap: 30px;
+.media-phare {
+    flex: 1.2;
+    height: 400px;
+    background-color: #eee;
 }
 
-.section-features { flex: 2; }
-.section-sidebar { flex: 1; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Ajoute les "..." automatiquement */}
+.media-phare img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.phare-content { flex: 1; padding: 40px; }
+
+.badge {
+    background: #e74c3c;
+    color: white;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
 
 .grid-features {
     display: grid;
@@ -116,16 +128,36 @@ ul.menu li a:hover, ul.menu li a.active {
     border-bottom: 1px solid #eee;
 }
 
-.card-feature h3 { margin: 15px 0 10px 0; font-size: 1.3rem; }
+.card-feature .media-feature {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
 
+.card-feature .media-feature img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
+/* --- SIDEBAR --- */
+.section-sidebar {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* --- PAGE ARTICLE UNIQUE --- */
 .breadcrumb {
     font-size: 0.9rem;
     margin-bottom: 20px;
     color: #888;
 }
-
-.breadcrumb span { margin: 0 8px; color: #ccc; }
 
 main article.main_article {
     background-color: white;
@@ -145,12 +177,6 @@ main article.main_article {
     margin: 20px 0;
 }
 
-.article-content {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    text-align: justify;
-}
-
 .btn-back {
     display: inline-block;
     background-color: #27ae60;
@@ -161,8 +187,7 @@ main article.main_article {
     margin: 20px 0;
 }
 
-.btn-back:hover { background-color: #219150; }
-
+/* --- FORMULAIRES --- */
 form {
     background: #f4f4f4;
     padding: 20px;
@@ -186,42 +211,7 @@ form button {
     cursor: pointer;
 }
 
-.media-phare {
-    flex: 1.2;
-    height: 400px;
-    background-color: #eee;
-}
-
-.media-phare img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-}
-
-
-.card-feature .media-feature {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-.card-feature .media-feature img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-@media (max-width: 900px) {
-    .media-phare {
-        height: 250px; /* Plus petit sur téléphone */
-    }
-}
-/* Container principal du panier */
+/* --- PANIER (LISTE DE LECTURE) --- */
 .panier-style {
     background-color: #f9f9f9;
     border: 2px dashed #d1d1d1;
@@ -241,7 +231,6 @@ form button {
     font-size: 1.2rem;
 }
 
-/* Liste des articles */
 #panier_contenu {
     list-style: none;
     padding: 0;
@@ -255,21 +244,12 @@ form button {
     padding: 10px 15px;
     margin-bottom: 8px;
     border-radius: 4px;
-    border-left: 5px solid #2ecc71; /* Petite barre verte type "achat" */
-    transition: transform 0.2s;
+    border-left: 5px solid #2ecc71;
+    transition: 0.2s;
 }
 
-#panier_contenu li:hover {
-    transform: translateX(5px);
-}
+#panier_contenu li:hover { transform: translateX(5px); }
 
-/* Détails du texte */
-#panier_contenu li strong {
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-/* Temps de lecture (badge) */
 .read-time-badge {
     background: #e8f5e9;
     color: #2e7d32;
@@ -280,37 +260,111 @@ form button {
     margin-right: 15px;
 }
 
-/* Bouton supprimer [x] */
 .btn-remove-fav {
     background: #ff4d4d;
     color: white !important;
-    text-decoration: none;
-    padding: 5px 10px;
+    padding: 5px 12px;
     border-radius: 4px;
     font-weight: bold;
-    font-size: 0.9rem;
 }
 
-.btn-remove-fav:hover {
-    background: #cc0000;
-}
-
-/* Footer du panier (Total et Vider) */
-.total-pigeons {
-    margin-top: 20px;
-    text-align: right;
-    font-size: 1.1rem;
-}
+.btn-remove-fav::before { content: "✕"; }
 
 .btn-delete {
     display: inline-block;
     margin-top: 10px;
     color: #888;
     font-size: 0.8rem;
-    text-decoration: none;
 }
 
-.btn-delete:hover {
-    color: red;
-    text-decoration: underline;
+/* --- SECTION CATALOGUE FAVORIS (GRILLE) --- */
+.favorite {
+    max-width: 1200px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.favorite-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+.article-container {
+    position: relative;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.article-container:hover { transform: translateY(-5px); }
+
+.article-content img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    display: block;
+}
+
+.article-content h3 {
+    padding: 15px;
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    text-align: left;
+}
+
+/* --- L'ÉTOILE DYNAMIQUE --- */
+.btn-star-toggle {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 38px;
+    font-size: 24px;
+    z-index: 10;
+    border: 3px solid #f1c40f;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-star-toggle.active {
+    background-color: #f1c40f;
+    color: white;
+}
+
+.btn-star-toggle.inactive {
+    background-color: white;
+    color: #f1c40f;
+}
+
+.btn-star-toggle:hover {
+    transform: scale(1.2) rotate(15deg);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .media-phare { height: 250px; }
+    .main-layout { flex-direction: column; }
+}
+.article-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre transparent */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 5;
+    backdrop-filter: blur(2px); /* Effet de flou derrière le numéro */
 }

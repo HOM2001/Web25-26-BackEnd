@@ -8,20 +8,25 @@ function main_favorite():string
     $action = $_GET["action"] ?? '';
     $id = $_GET["id"] ?? '';
 
-    var_dump($_SESSION['panier']);
     if ($action == 'add' && $id) {
         if (!in_array($id,$_SESSION['panier'])) {
             $_SESSION['panier'][] = $id;
+            header("Location: ?page=favorite");
+            exit;
         }
     }
     if ($action === 'remove' && $id) {
         $key = array_search($id, $_SESSION['panier']);
         if ($key !== false){
             unset($_SESSION['panier'][$key]);
+            header("Location: ?page=favorite");
+            exit;
         }
     }
-    if ($action === 'clear' && $id) {
+    if ($action === 'clear') {
         $_SESSION['panier'] = [];
+        header("Location: ?page=favorite");
+        exit;
     }
 
 
@@ -30,14 +35,14 @@ function main_favorite():string
 
     if (!empty($_SESSION['panier'])) {
         $ids_string = implode(',', array_map('intval', $_SESSION['panier']));
-        $sql = "SELECT id_art, title_art, readtime_art FROM t_article WHERE id_art IN ($ids_string)";
+        $sql = "SELECT ident_art, title_art, readtime_art FROM t_article WHERE ident_art IN ($ids_string)";
 
         // DEBUG : Copie ce qui s'affiche à l'écran et colle-le dans PhpMyAdmin SQL
         // echo $sql;
 
         $articles_complets = db_select($sql);
     }
-    var_dump($articles_complets);
+
 
 
     return join( "\n", [
