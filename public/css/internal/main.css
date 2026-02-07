@@ -1,4 +1,4 @@
-/* --- BASE & TYPOGRAPHIE --- */
+
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     font-size: 16px;
@@ -26,7 +26,7 @@ hr {
     margin: 20px 0;
 }
 
-/* --- HEADER & MENU --- */
+
 header {
     background-color: #f0f8ff;
     padding: 10px 0;
@@ -143,20 +143,41 @@ ul.menu li a:hover, ul.menu li a.active {
     display: block;
 }
 
-/* --- SIDEBAR --- */
 .section-sidebar {
-    flex: 1;
+    flex: 2;
     background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #eee;
 }
+.section-sidebar h2 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #3498db; /* Barre de couleur sous le titre */
+    display: inline-block;
+}
+
+/* Liste des articles dans la sidebar */
+.section-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-sidebar li {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
 
 /* --- PAGE ARTICLE UNIQUE --- */
-.breadcrumb {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    color: #888;
+
+.breadcrumb a {
+    margin-right: 50px;
+    color: black;
 }
 
 main article.main_article {

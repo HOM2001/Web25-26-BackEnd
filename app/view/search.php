@@ -26,8 +26,7 @@ HTML;
 
 function html_result_search($press_a)
 {
-    if(empty($press_a))
-    {
+    if (empty($press_a)) {
         return '<p>Aucun article disponible.</p>';
     }
 
@@ -35,22 +34,39 @@ function html_result_search($press_a)
     $out = "<h2>Les articles disponibles</h2>";
     $out .= "<ul>";
 
-    foreach($press_a as $item)
-    {
+    if (DATABASE_TYPE === "MySql") {
+        foreach ($press_a as $item) {
 
-        $visual = $item['title_art'] ?? $item['title'] ?? 'Sans titre';
+            $title = $item['title_art'] ?? 'Sans titre';
 
 
-        $ident_art = $item['ident_art'] ?? $item['id'] ?? 0;
+            $id_art = $item['ident_art'] ?? 0;
 
-        $out .= <<< HTML
+            $out .= <<< HTML
             <li>
-                <a href="?page=article&ident_art=$ident_art">$visual</a>
+                <a href="?page=article&ident_art=$id_art">$title</a>
             </li>
 HTML;
+        }
+        $out .= "</ul>";
+    } elseif (DATABASE_TYPE === "json") {
+        foreach ($press_a as $item) {
+
+            $title = $item['title'] ?? 'Sans titre';
+
+
+            $id_art = $item['id'] ?? 0;
+
+            $out .= <<< HTML
+            <li>
+                <a href="?page=article&id=$id_art">$title</a>
+            </li>
+
+HTML;
+        }
+
+        $out .= "</ul>";
     }
-
-    $out .= "</ul>";
-
     return $out;
 }
+

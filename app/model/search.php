@@ -5,30 +5,49 @@
 function search($keyword = '', $limit = 10)
 {
 
-    $params = [];
-    $where_clauses = [];
+    if (DATABASE_TYPE === "json") {
+        $path = '../asset/database/article.json';
+        if (!file_exists($path)) return [];
 
-    if (!empty($keyword)) {
-        $where_clauses[] = "content_art LIKE :keyword";
-        $params['keyword'] = "%$keyword%";
+        $content_s = file_get_contents($path);
+        $content_a = json_decode($content_s, true);
+
+        if (!empty($keyword)) {
+            $content_a = array_filter($content_a, function($article) use ($keyword) {
+
+                return mb_stripos($article['contents'], $keyword) !== false;
+            });
+        }
+
+        return array_slice(array_values($content_a), 0, $limit);
     }
+    elseif (DATABASE_TYPE === "MySql") {
+        $params = [];
+        $where_clauses = [];
 
+        if (!empty($keyword)) {
+            $where_clauses[] = "content_art LIKE :keyword";
+            $params['keyword'] = "%$keyword%";
+        }
 
+        $where_sql = !empty($where_clauses) ? "WHERE " . implode(" AND ", $where_clauses) : "";
 
-
-    $where_sql = !empty($where_clauses) ? "WHERE " . implode(" AND ", $where_clauses) : "";
-
-    $q = <<< SQL
-        SELECT 
-            title_art AS title,
-            ident_art,
-            hook_art AS hook,
-            image_art
-        FROM `t_article`
-        $where_sql
-        ORDER BY date_art DESC
-        LIMIT $limit
+        $q = <<< SQL
+            SELECT 
+                title_art ,
+                ident_art,
+                hook_art AS hook,
+                image_art
+            FROM `t_article`
+            $where_sql
+            ORDER BY date_art DESC
+            LIMIT $limit
 SQL;
 
-    return db_select_prepare($q, $params);
+        return db_select_prepare($q, $params);
+    }
+    else {
+
+        return [];
+    }
 }

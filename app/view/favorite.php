@@ -2,8 +2,17 @@
 /*
  * Display a cart for add favorite article in the cart
  */
-function html_panier_favorite() {
-    $articles = get_sql('',100);
+function html_panier_favorite() : string{
+    if(DATABASE_TYPE === 'MySql'){
+        $articles = get_sql('',100);
+    }elseif (DATABASE_TYPE === 'json') {
+        $content_s = file_get_contents('../asset/database/article.json');
+        $content_a = json_decode($content_s, true);
+
+        $articles  = array_slice($content_a, 0, 20);
+
+    }
+
 
     ob_start();
     ?>
@@ -17,10 +26,15 @@ function html_panier_favorite() {
         if (!empty($articles) && is_array($articles)) {
             foreach($articles as $key => $item) {
                 $display_id = $key+1;
-                $id = $item['ident_art'];
+                $id = $item['ident_art'] ?? $item['id'];
                 $title = $item['title'];
-                $image = MEDIA_PATH . $item['image_art'];
+                $image_name = $lead['image_art']   ?? "default.jpg"; // Corrigé : $lead au lieu de $art_a
 
+                $media = "";
+                if (!empty($image_name)){
+                    $media_path = MEDIA_PATH . $image_name;
+                    $media = " <img src='{$media_path}' alt='{$title}'>";
+                }
                 // On vérifie si l'article est déjà dans le panier
                 $is_favorite = in_array($id, $_SESSION['panier']);
 
@@ -35,7 +49,7 @@ function html_panier_favorite() {
             ★
         </a>
         <div class="article-content">
-            <img src="{$image}" alt="{$title}">
+            {$media}
             <h3>{$title}</h3>
         </div>
     </div>

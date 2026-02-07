@@ -37,8 +37,6 @@ function html_home($lead, $features, $sidebar)
     }
 
     $out .= '<div class="main-layout">';
-
-    // --- 2. LES ARTICLES PRINCIPAUX (FEATURES) ---
     $out .= '<section class="section-features">';
     $out .= '<h2>À la une cette semaine</h2>';
     $out .= '<div class="grid-features">';
@@ -72,7 +70,7 @@ function html_home($lead, $features, $sidebar)
         $id    = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
         $hook  = $art['hook_art']  ?? $art['hook'] ?? "";
-        $hook_short = limit_words($hook, DEFAULT_LIMIT_SIDEBAR);
+        $hook_short = limit_words($hook, LIMIT_WORD_SIDEBAR);
         $out .= "
                  <li>
                     <a href='?page=article&ident_art=$id'>

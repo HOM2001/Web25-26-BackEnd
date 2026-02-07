@@ -64,8 +64,8 @@ HTML;
 <main>
     <article class="main_article">
       <nav class="breadcrumb">
-        <a href="?page=home">Accueil</a> <span>&gt;</span> 
-        <a href="?page=press">Articles</a> <span>&gt;</span> 
+        <a href="?page=home">Accueil  </a> 
+        <a href="?page=press">Presse </a> 
       </nav>
         <h2>{$title}</h2>
             {$media}
