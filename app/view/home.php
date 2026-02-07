@@ -14,12 +14,13 @@ function html_home($lead, $features, $sidebar)
         $id_lead    = $lead['ident_art']   ?? $lead['id'];
         $title_lead = $lead['title_art']   ?? $lead['title'];
         $hook_lead  = $lead['hook_art']    ?? $lead['hook'] ?? "";
-        $image_name = $lead['image_art']   ?? ""; // Corrigé : $lead au lieu de $art_a
+        $image_name = $art['image_art']   ?? "default.jpg"; //
 
-        $media = "";
-        if (!empty($image_name)){
-            $media_path = MEDIA_PATH . $image_name;
+        $media_path = MEDIA_PATH . $image_name;
+        if ($image_name != "default.jpg"){
             $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title_lead}'></div>";
+        }else {
+            $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
         }
 
         $out .= "
@@ -44,12 +45,13 @@ function html_home($lead, $features, $sidebar)
         $id    = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
         $hook  = $art['hook_art']  ?? $art['hook'] ?? "";
-        $image_name = $art['image_art']   ?? ""; //
+        $image_name = $art['image_art']   ?? "default.jpg"; //
 
-        $media = "";
-        if (!empty($image_name)){
-            $media_path = MEDIA_PATH . $image_name;
+        $media_path = MEDIA_PATH . $image_name;
+        if ($image_name == "default.jpg"){
             $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title}'></div>";
+        }else {
+            $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
         }
         $out .= "
                  <article class='card-feature'>

@@ -66,10 +66,19 @@ HTML;
 }
 function html_panier_contenu($articles_selectionnes = []) {
 
-    $all_articles = get_sql('', 100);
+    if(DATABASE_TYPE === 'MySql'){
+        $all_articles = get_sql('',100);
+    }elseif (DATABASE_TYPE === 'json') {
+        $content_s = file_get_contents('../asset/database/article.json');
+        $content_a = json_decode($content_s, true);
+
+        $all_articles  = array_slice($content_a, 0, 20);
+
+    }
     $id_to_pos = [];
     foreach ($all_articles as $key => $a) {
-        $id_to_pos[$a['ident_art']] = $key + 1;
+        $id = (DATABASE_TYPE === 'MySql') ? $a['ident_art'] : $a['id'];
+        $id_to_pos[$id] = $key + 1;
     }
 
     ob_start();
