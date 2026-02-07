@@ -63,10 +63,7 @@ HTML;
     $out = <<< HTML
 <main>
     <article class="main_article">
-      <nav class="breadcrumb">
-        <a href="?page=home">Accueil  </a> 
-        <a href="?page=press">Presse </a> 
-      </nav>
+     
         <h2>{$title}</h2>
             {$media}
         <p><strong>{$hook}</strong></p>     

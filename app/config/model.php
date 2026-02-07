@@ -2,7 +2,7 @@
 
 const MACHINE = "MAMP"; // MAMP , WAMP
 
-const DATABASE_TYPE =  "json"; // "MySql";  // "json"
+const DATABASE_TYPE =  "MySql"; // "MySql";  // "json"
 const DATABASE_NAME = "press_2025_v05";
 
 switch(MACHINE) {

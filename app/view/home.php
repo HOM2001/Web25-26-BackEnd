@@ -14,7 +14,7 @@ function html_home($lead, $features, $sidebar)
         $id_lead    = $lead['ident_art']   ?? $lead['id'];
         $title_lead = $lead['title_art']   ?? $lead['title'];
         $hook_lead  = $lead['hook_art']    ?? $lead['hook'] ?? "";
-        $image_name = $art['image_art']   ?? "default.jpg"; //
+        $image_name = $lead['image_art']   ?? "default.jpg"; //
 
         $media_path = MEDIA_PATH . $image_name;
         if ($image_name != "default.jpg"){
