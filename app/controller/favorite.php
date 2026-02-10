@@ -11,17 +11,18 @@ function main_favorite():string
     if ($action == 'add' && $id) {
         if (!in_array($id,$_SESSION['panier'])) {
             $_SESSION['panier'][] = $id;
+        }
             header("Location: ?page=favorite");
             exit;
-        }
     }
     if ($action === 'remove' && $id) {
         $key = array_search($id, $_SESSION['panier']);
         if ($key !== false){
             unset($_SESSION['panier'][$key]);
+        }
             header("Location: ?page=favorite");
             exit;
-        }
+
     }
     if ($action === 'clear') {
         $_SESSION['panier'] = [];

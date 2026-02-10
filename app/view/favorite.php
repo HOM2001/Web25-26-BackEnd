@@ -28,7 +28,7 @@ function html_panier_favorite() : string{
                 $display_id = $key+1;
                 $id = $item['ident_art'] ?? $item['id'];
                 $title = $item['title'];
-                $image_name = $lead['image_art']   ?? "default.jpg"; // Corrigé : $lead au lieu de $art_a
+                $image_name = $item['image_art']   ?? "default.jpg"; // Corrigé : $lead au lieu de $art_a
 
                 $media = "";
                 if (!empty($image_name)){
