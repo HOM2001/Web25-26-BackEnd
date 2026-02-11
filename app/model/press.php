@@ -16,7 +16,7 @@ function get_press_list( $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 
         case "MySql":
 
-            return get_sql($order, $limit);
+            return get_sql('',$order, $limit);
 
         default:
             return [];
@@ -58,38 +58,35 @@ function get_press_article($ident)
 
     return ["error" => "Article introuvable."];
 }
-function get_sql($order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+function get_sql($category = null, $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     $p = [];
+    $where = "";
 
+    if (!empty($category)) {
+        $where = "WHERE c.name_cat LIKE :cat";
+        $p['cat'] = "%" . $category . "%";
+    }
 
-    // 2. Logique de tri
     switch ($order) {
-        case 'random':
-            $orderBy = "ORDER BY RAND()";
-            break;
-        case 'first': // Les tout premiers créés (ID 0, 1, 2...)
-            $orderBy = "ORDER BY ident_art ASC";
-            break;
-        case 'last':  // Les tout derniers créés (ID 2924, 2923...)
-            $orderBy = "ORDER BY ident_art DESC";
-            break;
-        case 'old':   // Les plus anciens par date
-            $orderBy = "ORDER BY date_art ASC";
-            break;
+        case 'random': $orderBy = "ORDER BY RAND()"; break;
+        case 'first':  $orderBy = "ORDER BY a.ident_art ASC"; break;
+        case 'last':   $orderBy = "ORDER BY a.ident_art DESC"; break;
+        case 'old':    $orderBy = "ORDER BY a.date_art ASC"; break;
         case 'recent':
-        default:      // Les plus récents par date
-            $orderBy = "ORDER BY date_art DESC";
-            break;
+        default:       $orderBy = "ORDER BY a.date_art DESC"; break;
     }
 
     $q = <<< SQL
         SELECT 
-            title_art AS title,
-            ident_art,
-            hook_art AS hook,
-            image_art
-        FROM `t_article` 
+            a.title_art AS title_art,
+            a.ident_art AS ident_art,
+            a.hook_art AS hook,
+            a.image_art AS image_art,
+            c.name_cat AS name_cat
+        FROM `t_article` a
+        JOIN `t_category` c ON c.id_cat = a.fk_category_art
+        $where
         $orderBy
         LIMIT $limit;
 SQL;

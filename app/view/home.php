@@ -1,9 +1,6 @@
 <?php
 /**
-* Vue principale de la Home
-* @param array|null $lead       L'article phare (un seul tableau)
-* @param array      $features   Les 3 articles principaux (tableau de tableaux)
-* @param array      $sidebar    Le reste des articles (tableau de tableaux)
+*
 */
 function html_home($lead, $features, $sidebar)
 {
@@ -58,7 +55,7 @@ function html_home($lead, $features, $sidebar)
                     <h3>{$title}</h3>
                     {$media}
                     <p>{$hook}</p>
-                    <a href='?page=article&ident_art=$id' class='read-more'>En savoir plus-></a>
+                    <a href='?page=article&ident_art=$id' class='read-more'>En savoir plus -></a>
                  </article>";
     }
     $out .= '</div>';

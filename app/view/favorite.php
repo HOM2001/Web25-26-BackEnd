@@ -4,7 +4,7 @@
  */
 function html_panier_favorite() : string{
     if(DATABASE_TYPE === 'MySql'){
-        $articles = get_sql('',100);
+        $articles = get_sql('','',100);
     }elseif (DATABASE_TYPE === 'json') {
         $content_s = file_get_contents('../asset/database/article.json');
         $content_a = json_decode($content_s, true);
@@ -27,7 +27,7 @@ function html_panier_favorite() : string{
             foreach($articles as $key => $item) {
                 $display_id = $key+1;
                 $id = $item['ident_art'] ?? $item['id'];
-                $title = $item['title'];
+                $title = $item['title_art'] ?? $item['title'];
                 $image_name = $item['image_art']   ?? "default.jpg"; // Corrigé : $lead au lieu de $art_a
 
                 $media = "";
