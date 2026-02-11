@@ -58,7 +58,7 @@ function html_home($lead, $features, $sidebar)
                     <h3>{$title}</h3>
                     {$media}
                     <p>{$hook}</p>
-                    <a href='?page=article&ident_art=$id' class='read-more'>En savoir plus →</a>
+                    <a href='?page=article&ident_art=$id' class='read-more'>En savoir plus-></a>
                  </article>";
     }
     $out .= '</div>';
@@ -67,14 +67,16 @@ function html_home($lead, $features, $sidebar)
     // --- 3. LA SIDEBAR ---
     $out .= '<aside class="section-sidebar">';
     $out .= '<h3>Dernières minutes</h3>';
+    $out .= '<input type="checkbox" id="toggle-sidebar" class="sidebar-checkbox" hidden>';
     $out .= '<ul>';
-    foreach ($sidebar as $art) {
+    foreach ($sidebar as $index => $art) {
         $id    = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
         $hook  = $art['hook_art']  ?? $art['hook'] ?? "";
         $hook_short = limit_words($hook, LIMIT_WORD_SIDEBAR);
+        $hidden = ($index > 1) ? 'class="hidden"' : '';
         $out .= "
-                 <li>
+                 <li {$hidden}>
                     <a href='?page=article&ident_art=$id'>
                        <h4>{$title}</h4>
                        <p>{$hook_short}</p>
@@ -82,6 +84,8 @@ function html_home($lead, $features, $sidebar)
                  </li>";
     }
     $out .= '</ul>';
+    $out .= '<label for="toggle-sidebar" class="btn-sidebar btn-more">Lire plus</label>';
+    $out .= '<label for="toggle-sidebar" class="btn-sidebar btn-less">Lire moins</label>';
     $out .= '</aside>';
 
     $out .= '</div>';
