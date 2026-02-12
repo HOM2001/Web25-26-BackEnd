@@ -5,6 +5,8 @@ const MACHINE = "MAMP"; // MAMP , WAMP
 const DATABASE_TYPE =  "MySql"; // "MySql";  // "json"
 const DATABASE_NAME = "press_2025_v05";
 
+const MENU_TYPE = "database"; // csv , database
+
 switch(MACHINE) {
 
 	case "WAMP":

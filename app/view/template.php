@@ -8,20 +8,28 @@ function html_head($menu_a=[])
     $menu_s = <<< HTML
         <ul class="menu">
 HTML;
-    foreach( $menu_a as $menu_item)
-    {
-        $visual = $menu_item[0];
-        $comp = $menu_item[1];
-        $subcomp = $menu_item[2] ?? '';
-        $menu_s .= <<< HTML
+    if(MENU_TYPE == "csv"){
+        foreach( $menu_a as $menu_item)
+        {
+            $visual = $menu_item[0];
+            $comp = $menu_item[1];
+            $subcomp = $menu_item[2] ?? '';
+            $menu_s .= <<< HTML
             <li>
                 <a href="?page=$comp&subpage=$subcomp">
                     $visual
                 </a>            
             </li>
 HTML;
+        }
+    }   else if(MENU_TYPE == "database"){
+        foreach ($menu_a as $item) {
+            $link = str_replace('?page=', '', $item[1]);
+            $menu_s .= "<li><a href='?page={$link}'>{$item[0]}</a></li>";
+        }
     }
     $menu_s .= "</ul>";
+
 
 	ob_start();
 	?>
