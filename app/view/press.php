@@ -70,6 +70,11 @@ HTML;
         <div class="article-content">
             {$content}
         </div>
+        <div class="navigation-back">
+    <button onclick="history.back()" class="btn-back">
+         Retour
+    </button>
+</div>';
     </article>
 </main>
 HTML;
