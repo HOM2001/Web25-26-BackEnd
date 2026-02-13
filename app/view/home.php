@@ -1,22 +1,25 @@
 <?php
 /**
-*
-*/
+ * Vue principale de la Home
+ * @param array|null $lead L'article phare (un seul tableau)
+ * @param array $features Les 3 articles principaux (tableau de tableaux)
+ * @param array $sidebar Le reste des articles (tableau de tableaux)
+ */
 function html_home($lead, $features, $sidebar)
 {
     $out = '<div class="container-home">';
 
     // --- 1. L'ARTICLE PHARE (LEAD) ---
     if ($lead) {
-        $id_lead    = $lead['ident_art']   ?? $lead['id'];
-        $title_lead = $lead['title_art']   ?? $lead['title'];
-        $hook_lead  = $lead['hook_art']    ?? $lead['hook'] ?? "";
-        $image_name = $lead['image_art']   ?? "default.jpg"; //
+        $id_lead = $lead['ident_art'] ?? $lead['id'];
+        $title_lead = $lead['title_art'] ?? $lead['title'];
+        $hook_lead = $lead['hook_art'] ?? $lead['hook'] ?? "";
+        $image_name = $lead['image_art'] ?? "default.jpg"; //
 
         $media_path = MEDIA_PATH . $image_name;
-        if ($image_name != "default.jpg"){
+        if ($image_name != "default.jpg") {
             $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title_lead}'></div>";
-        }else {
+        } else {
             $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
         }
 
@@ -39,15 +42,15 @@ function html_home($lead, $features, $sidebar)
     $out .= '<h2>À la une cette semaine</h2>';
     $out .= '<div class="grid-features">';
     foreach ($features as $art) {
-        $id    = $art['ident_art'] ?? $art['id'];
+        $id = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
-        $hook  = $art['hook_art']  ?? $art['hook'] ?? "";
-        $image_name = $art['image_art']   ?? "default.jpg"; //
+        $hook = $art['hook_art'] ?? $art['hook'] ?? "";
+        $image_name = $art['image_art'] ?? "default.jpg"; //
 
         $media_path = MEDIA_PATH . $image_name;
-        if ($image_name == "default.jpg"){
+        if ($image_name == "default.jpg") {
             $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title}'></div>";
-        }else {
+        } else {
             $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
         }
         $out .= "
@@ -67,9 +70,9 @@ function html_home($lead, $features, $sidebar)
     $out .= '<input type="checkbox" id="toggle-sidebar" class="sidebar-checkbox" hidden>';
     $out .= '<ul>';
     foreach ($sidebar as $index => $art) {
-        $id    = $art['ident_art'] ?? $art['id'];
+        $id = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
-        $hook  = $art['hook_art']  ?? $art['hook'] ?? "";
+        $hook = $art['hook_art'] ?? $art['hook'] ?? "";
         $hook_short = limit_words($hook, LIMIT_WORD_SIDEBAR);
         $hidden = ($index > 1) ? 'class="hidden"' : '';
         $out .= "

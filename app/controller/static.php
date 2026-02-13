@@ -2,12 +2,20 @@
 
 function main_static()
 {
-    $filename = $_GET['subpage'];
-    $static_contents = get_static_contents($filename);
+    $static_name = $_GET['subpage'] ;
+    $page_data = get_static_contents($static_name);
+    if ($page_data) {
+        $title = $page_data['title_static'];
+        $content = $page_data['content_static'];
+    } else {
+        $title = "404";
+        $content = "Page non trouvée.";
+    }
 
     return join( "\n", [
         html_head(get_menu()),
-        $static_contents,
+        $title,
+        $content,
         html_foot(),
     ]);
 

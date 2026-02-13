@@ -12,13 +12,21 @@ function get_menu()
             $menu_aa[] = explode('|', $menu_item_s);
         }
     } else if (MENU_TYPE == "database") {
-        $sql = "SELECT label_menu, url_name_menu FROM t_menu ORDER BY num_menu ASC";
+        $sql = "SELECT label_menu, url_name_menu,subpage_menu FROM t_menu ORDER BY num_menu ASC";
 
         $menu_db = db_select($sql);
 
         if ($menu_db) {
             foreach ($menu_db as $item) {
-                $menu_aa[] = [$item['label_menu'], $item['url_name_menu']];
+               $label = $item['label_menu'];
+               $page = $item['url_name_menu'];
+               $subpage = $item['subpage_menu'];
+               if(!empty($subpage)) {
+                   $url = "?page=$page&subpage=$subpage";
+               }else{
+                   $url = "?page=$page";
+               }
+               $menu_aa[] = [$label, $url];
             }
         }
     }
