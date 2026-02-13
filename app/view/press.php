@@ -74,7 +74,7 @@ HTML;
     <button onclick="history.back()" class="btn-back">
          Retour
     </button>
-</div>';
+</div>
     </article>
 </main>
 HTML;

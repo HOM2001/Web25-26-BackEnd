@@ -422,3 +422,44 @@ form button {
 .btn-sidebar:hover {
     background: #ddd;
 }
+.menu-reading-form {
+    background-color: #333;
+    padding: 10px 0 20px 0;
+    margin: 0;
+    text-align: center;
+    border-radius: 0;
+}
+
+.menu-reading-form select {
+    background-color: #444;
+    color: #fff;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    border: 1px solid #555;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align-last: center;
+}
+
+.menu-reading-form select:hover {
+    border-color: #3498db; /
+    background-color: #555;
+}
+
+
+.menu-reading-form select option {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+
+.menu-reading-form select option:disabled {
+    color: #888;
+}

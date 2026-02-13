@@ -28,9 +28,26 @@ HTML;
             $menu_s .= "<li><a href='?page={$link}'>{$item[0]}</a></li>";
         }
     }
+    $options_s = "";
+    $times = get_reading_times() ?? 0 ;
+    $current_time = $_GET['time'] ?? null;
+    foreach ($times as $t) {
+        $m = $t['readtime_art'];
+        $selected = ($current_time == $m) ? "selected" : "";
+
+        $options_s .= "<option value='$m' $selected>$m min</option>";
+    }
+
+    $menu_s .= <<< HTML
+    <form action="index.php" method="get" class="menu-reading-form">
+        <input type="hidden" name="page" value="readtime">
+        <select name="time" onchange="this.form.submit()">
+            <option value="" disabled selected>Temps de lecture</option>
+            $options_s
+        </select>
+    </form>
+HTML;
     $menu_s .= "</ul>";
-
-
 	ob_start();
 	?>
 	<html lang="fr">
