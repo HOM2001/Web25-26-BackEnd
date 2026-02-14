@@ -4,7 +4,6 @@ function html_head($menu_a=[])
 {
     $debug = false;
 
-    // on génère le code html du menu, à partir de $menu_a
     $menu_s = <<< HTML
         <ul class="menu">
 HTML;
@@ -29,41 +28,50 @@ HTML;
         }
     }
     $options_s = "";
-    $times = get_reading_times() ?? 0 ;
+    $times = get_reading_times() ?: [] ;
     $current_time = $_GET['time'] ?? null;
     foreach ($times as $t) {
         $m = $t['readtime_art'];
         $selected = ($current_time == $m) ? "selected" : "";
-
         $options_s .= "<option value='$m' $selected>$m min</option>";
     }
 
+
+    $show_articles = $_SESSION['show_main_articles'] ?? true;
+    $btn_text = $show_articles ? "Masquer la Une" : "Afficher la Une";
+
+
     $menu_s .= <<< HTML
-    <form action="index.php" method="get" class="menu-reading-form">
-        <input type="hidden" name="page" value="readtime">
-        <select name="time" onchange="this.form.submit()">
-            <option value="" disabled selected>Temps de lecture</option>
-            $options_s
-        </select>
-    </form>
+    <li class="menu-tools">
+        <form action="index.php" method="get" class="menu-reading-form" style="display:inline;">
+            <input type="hidden" name="page" value="readtime">
+            <select name="time" onchange="this.form.submit()">
+                <option value="" >Temps de lecture</option>
+                $options_s
+            </select>
+        </form>
+        </li> 
+       <li> 
+       <a href="?action=toggle_display" class="btn-toggle-view">$btn_text</a>
+       </li>
 HTML;
+
     $menu_s .= "</ul>";
-	ob_start();
-	?>
-	<html lang="fr">
-	<head>
-		<title>AWebWiz Template (MVC)</title>
-        <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css" />  <!-- lib externe -->
-        <link rel="stylesheet" href="./css/internal/main.css" /> <!-- lib interne / perso -->
-        <script
-                src="https://code.jquery.com/jquery-3.4.1.js"
-                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-                crossorigin="anonymous"></script>
+
+    ob_start();
+    ?>
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <title>AWebWiz Template (MVC)</title>
+        <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/internal/main.css" />
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
         <script src="./js/quirks/QuirksMode.js"></script>
         <script src="./js/internal/favorite.js"></script>
         <script src="./js/internal/counter.js"></script>
-	</head>
-	<body>
+    </head>
+    <body>
     <header>
         <h1>
             France 24 (MVC)
@@ -73,16 +81,13 @@ HTML;
     </header>
     <?php
 
-	if($debug)
-	{
-        var_dump($_COOKIE);
-		var_dump($_SESSION);
+    if($debug)
+    {
         var_dump($_GET);
-        var_dump($_POST);
-	}
-	return ob_get_clean();
+        var_dump($_SESSION);
+    }
+    return ob_get_clean();
 }
-
 function html_foot()
 {
 	ob_start();

@@ -463,3 +463,22 @@ form button {
 .menu-reading-form select option:disabled {
     color: #888;
 }
+
+.btn-toggle-view {
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid #555;
+    border-radius: 20px;
+    margin-left: 15px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-top: 5px;
+
+}
+.menu-tools {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}

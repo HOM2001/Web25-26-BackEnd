@@ -5,10 +5,10 @@
  * @param array $features Les 3 articles principaux (tableau de tableaux)
  * @param array $sidebar Le reste des articles (tableau de tableaux)
  */
-function html_home($lead, $features, $sidebar)
+function html_home($lead, $features, $sidebar, $show_articles = true)
 {
     $out = '<div class="container-home">';
-
+    if ($show_articles) {
     // --- 1. L'ARTICLE PHARE (LEAD) ---
     if ($lead) {
         $id_lead = $lead['ident_art'] ?? $lead['id'];
@@ -37,33 +37,39 @@ function html_home($lead, $features, $sidebar)
         </section>";
     }
 
-    $out .= '<div class="main-layout">';
-    $out .= '<section class="section-features">';
-    $out .= '<h2>À la une cette semaine</h2>';
-    $out .= '<div class="grid-features">';
-    foreach ($features as $art) {
-        $id = $art['ident_art'] ?? $art['id'];
-        $title = $art['title_art'] ?? $art['title'];
-        $hook = $art['hook_art'] ?? $art['hook'] ?? "";
-        $image_name = $art['image_art'] ?? "default.jpg"; //
 
-        $media_path = MEDIA_PATH . $image_name;
-        if ($image_name == "default.jpg") {
-            $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title}'></div>";
-        } else {
-            $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
-        }
-        $out .= "
+
+        $out .= '<div class="main-layout">';
+        $out .= '<section class="section-features">';
+        $out .= '<h2>À la une cette semaine</h2>';
+        $out .= '<div class="grid-features">';
+        foreach ($features as $art) {
+            $id = $art['ident_art'] ?? $art['id'];
+            $title = $art['title_art'] ?? $art['title'];
+            $hook = $art['hook_art'] ?? $art['hook'] ?? "";
+            $image_name = $art['image_art'] ?? "default.jpg"; //
+
+            $media_path = MEDIA_PATH . $image_name;
+            if ($image_name == "default.jpg") {
+                $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title}'></div>";
+            } else {
+                $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
+            }
+            $out .= "
                  <article class='card-feature'>
                     <h3>{$title}</h3>
                     {$media}
                     <p>{$hook}</p>
                     <a href='?page=article&ident_art=$id' class='read-more'>En savoir plus -></a>
                  </article>";
+        }
+        $out .= '</div>';
+        $out .= '</section>';
+    }else {
+        $out .= "<div style='text-align:center; padding:20px; background:#eee; margin-bottom:20px; border-radius:8px;'>
+                    L'article phare et les articles principaux sont masqués.
+                 </div>";
     }
-    $out .= '</div>';
-    $out .= '</section>';
-
     // --- 3. LA SIDEBAR ---
     $out .= '<aside class="section-sidebar">';
     $out .= '<h3>Dernières minutes</h3>';
