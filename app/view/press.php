@@ -2,31 +2,44 @@
 
 function html_press_list_titles($press_a)
 {
-    if(empty($press_a))
-    {
-        return '<p>Aucun article disponible.</p>';
-    }
-
-
-    $out = "<h2>Tous nos articles de presse</h2>";
-    $out .= "<ul>";
-
-    foreach($press_a as $item)
-    {
-
-        $visual = $item['title_art'] ?? $item['title'] ?? 'Sans titre';
-
-
-        $ident_art = $item['ident_art'] ?? $item['id'] ?? 0;
-
-        $out .= <<< HTML
-            <li>
-                <a href="?page=article&ident_art=$ident_art">$visual</a>
-            </li>
+    if (empty($press_a)) {
+        return <<< HTML
+            <div class="empty-state">
+                <p>Aucun article disponible pour le moment.</p>
+            </div>
 HTML;
     }
 
-    $out .= "</ul>";
+    $nb = count($press_a);
+
+    $out = <<< HTML
+    <section class="press-section">
+        <div class="press-header">
+            <h2 class="section-title">Tous nos articles</h2>
+            <span class="count-badge">$nb articles disponibles</span>
+        </div>
+        <div class="press-grid">
+HTML;
+    foreach ($press_a as $item) {
+        $visual = $item['title_art'] ?? $item['title'] ?? 'Sans titre';
+        $ident_art = $item['ident_art'] ?? $item['id'] ?? 0;
+        $param = (isset($item['ident_art'])) ? 'ident_art' : 'id';
+
+        $out .= <<< HTML
+            <article class="press-card">
+                <a href="?page=article&$param=$ident_art">
+                    <div class="card-content">
+                        <h3>$visual</h3>
+                    </div>
+                </a>
+            </article>
+HTML;
+    }
+
+    $out .= <<< HTML
+        </div>
+    </section>
+HTML;
 
     return $out;
 }

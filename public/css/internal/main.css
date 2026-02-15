@@ -207,9 +207,98 @@ main article.main_article {
     font-weight: bold;
     margin: 20px 0;
 }
+/* Container de la section */
+.press-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    border-left: 5px solid #3498db;
+    padding-left: 15px;
+}
+
+/* Grille responsive */
+.press-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Style de la carte */
+.press-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+}
+
+.press-card a {
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    padding: 25px;
+}
+
+.press-card h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* Lien "Lire l'article" à l'intérieur */
+.read-link {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #3498db;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Effets au survol */
+.press-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #3498db;
+}
+
+.press-card:hover h3 {
+    color: #3498db;
+}
+
+/* État vide */
+.empty-state {
+    text-align: center;
+    padding: 50px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    color: #7f8c8d;
+}
+.press-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.count-badge {
+    background: #3498db;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
 
 /* --- FORMULAIRES --- */
-/* 1. LE CONTENEUR GLOBAL (ouvert dans form, fermé dans result) */
+
 .search-page-layout {
     display: flex;
     max-width: 1200px;

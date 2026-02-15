@@ -108,5 +108,26 @@ function get_sidebar_article($all_articles,$limit) {
     return array_slice($all_articles, 4, $limit-4);
 }
 
+function get_article_count()
+{
+    if (DATABASE_TYPE === "json") {
+        $path = '../asset/database/article.json';
+
+        if (!file_exists($path)) return 0;
+
+        $content_s = file_get_contents($path);
+        $articles = json_decode($content_s, true);
+
+        return is_array($articles) ? count($articles) : 0;
+    }
+    elseif (DATABASE_TYPE === "MySql") {
+        $q = "SELECT COUNT(*) AS total FROM t_article";
+        $res = db_select($q);
+        return (int)($res[0]['total'] ?? 0);
+    }
+
+    return 0;
+}
+
 
 
