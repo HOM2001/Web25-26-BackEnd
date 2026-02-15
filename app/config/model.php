@@ -8,7 +8,6 @@ const DATABASE_NAME = "press_2025_v05";
 const MENU_TYPE = "database"; // csv , database
 
 switch(MACHINE) {
-
 	case "WAMP":
 		define( "DATABASE_PORT", 3306 );
 		define( "DATABASE_USERNAME", "root" );

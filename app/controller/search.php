@@ -3,7 +3,7 @@
 function main_search():string {
 
     $reporters = get_reporter() ?? [];
-    $menu = get_menu();
+
     $results = [];
     if (!empty($_POST)) {
         $keyword = $_POST['keyword'] ?? '';
@@ -14,7 +14,7 @@ function main_search():string {
 
 
     return join("\n", [
-        html_head($menu),
+       ctrl_head(),
         html_search_form($reporters),
         html_result_search($results),
         html_foot()

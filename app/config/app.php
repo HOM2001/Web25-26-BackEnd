@@ -12,3 +12,6 @@ const DEFAULT_ORDER = 'recent'; // first(via id =); / last(via id ) / old ( via 
 
 const DEFAULT_LIMIT = 10; // limite des articles
 const LIMIT_WORD_SIDEBAR = 8; // limite de mots dans la sidebar
+const DEFAULT_FONT_COLOR = "black";
+
+const DEFAULT_BORDER = "none";

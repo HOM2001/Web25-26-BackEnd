@@ -13,7 +13,7 @@ function main_readtime(): string
     }
 
     return join("\n", [
-        html_head(get_menu()),
+       ctrl_head(),
         html_readtimes_results($time_selected, $articles),
         html_foot()
     ]);

@@ -42,7 +42,7 @@ function main_login()
 	}
 
     return join( "\n", [
-		html_head(get_menu()),
+		ctrl_head(),
 		html_open_form(),
 		$msg,
 		html_link_home(),

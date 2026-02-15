@@ -78,15 +78,31 @@ HTML;
             <img src="./icon/icon3.png">
         </h1>
         <?=$menu_s?>
+
     </header>
     <?php
-
+    echo style_sheet_font_color($_SESSION['text_color']);
+    echo style_sheet_border($_SESSION['border']);
     if($debug)
     {
         var_dump($_GET);
         var_dump($_SESSION);
     }
     return ob_get_clean();
+}
+function form_start(){
+    $html = <<< HTML
+        <div>
+            <br>
+    HTML;
+    return $html;
+}
+
+function form_end(){
+    $html = <<< HTML
+        </div>
+    HTML;
+    return $html;
 }
 function html_foot()
 {
@@ -100,6 +116,68 @@ function html_foot()
 	</html>
 	<?php
 	return ob_get_clean();
+}
+function form_font_color($font_color)
+{
+    $html = <<< HTML
+    <div class="container-fluid mb-3">
+        <form method="POST">
+            <label>Sélectionnez la taille du texte :</label>
+            <select id="text_color" name="text_color">
+                <option value="black" " . ($font_color === 'black' ? 'selected' : '') . ">Noir</option>
+                <option value="blue" " . ($font_color === 'blue' ? 'selected' : '') . ">Blue</option>
+                <option value="red" " . ($font_color === 'red' ? 'selected' : '') . ">Rouge</option>
+            </select>
+            <button name="set_color" type="submit">Changer</button>
+        </form>
+    </div>
+HTML;
+
+    return $html;
+}
+function form_border($border):string
+{
+    $html = <<< HTML
+    <div class="container-fluid mb-3">
+        <form method="POST">
+            <label>Sélectionnez le type de bordure :</label>
+            <select id="border" name="border">
+                <option value="none" " . ($border === 'none' ? 'selected' : '') . ">Sans bordure</option>
+                <option value="thin" " . ($border === 'thin' ? 'selected' : '') . ">Fine bordure</option>
+                <option value="thick" " . ($border === 'thick' ? 'selected' : '') . ">Epaisse bordure</option>
+            </select>
+            <button name="set_border" type="submit">Changer</button>
+        </form>
+    </div>
+HTML;
+
+    return $html;
+}
+function style_sheet_font_color($font_color = 'black') {
+
+    $val = (in_array($font_color, ['black', 'blue', 'red'])) ? $font_color : 'black';
+
+    return <<<HTML
+    <style>
+        body{
+            color: $val !important;
+        } 
+    </style>
+HTML;
+}
+function style_sheet_border($border = DEFAULT_BORDER)
+{
+    $border_style = ($border === 'none') ? 'none' : "$border solid black";
+
+    $html = <<< HTML
+<style>
+body{
+    border: $border_style !important;
+}
+</style>
+HTML;
+
+    return $html;
 }
 
 

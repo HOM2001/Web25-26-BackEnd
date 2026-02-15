@@ -31,13 +31,13 @@ function main_favorite():string
     }
 
 
-    $menu_a = get_menu();
+
     $articles_complets = get_panier();
 
 
 
     return join( "\n", [
-        html_head($menu_a),
+       ctrl_head(),
         html_panier_contenu($articles_complets),
         html_panier_favorite(),
         html_foot(),

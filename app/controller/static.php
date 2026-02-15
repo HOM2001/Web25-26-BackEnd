@@ -13,7 +13,7 @@ function main_static()
     }
 
     return join( "\n", [
-        html_head(get_menu()),
+        ctrl_head(),
         $title,
         $content,
         html_foot(),

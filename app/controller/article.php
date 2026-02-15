@@ -10,7 +10,7 @@ function main_article():string
 
     // view
 	return join( "\n", [
-		html_head(get_menu()),
+		ctrl_head(),
 		html_press_article($article_a),
 		html_foot(),
 	]);

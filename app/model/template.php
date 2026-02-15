@@ -42,4 +42,3 @@ function limit_words($text, $limit) {
     }
     return $text;
 }
-
