@@ -81,96 +81,149 @@ ul.menu li a:hover, ul.menu li a.active {
     gap: 30px;
 }
 
-/* --- ARTICLES PHARES & GRILLE HOME --- */
+/* --- STYLE DE L'ARTICLE PHARE (LEAD) --- */
+.section-lead {
+    margin-bottom: 40px;
+}
+
 .article-phare {
     display: flex;
-    background: white;
-    border: 1px solid #ddd;
-    margin-bottom: 40px;
-    border-radius: 8px;
+    background: #fff;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.article-phare:hover {
+    transform: translateY(-5px);
 }
 
 .media-phare {
-    flex: 1.2;
-    height: 400px;
-    background-color: #eee;
+    flex: 1.5;
+    height: 450px;
 }
 
 .media-phare img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
 }
 
-.phare-content { flex: 1; padding: 40px; }
-
-.badge {
-    background: #e74c3c;
-    color: white;
-    padding: 4px 10px;
-    font-size: 0.75rem;
-    border-radius: 3px;
-    text-transform: uppercase;
+.phare-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+.phare-content h1 {
+    font-size: 2.2rem;
+    margin: 15px 0;
+    line-height: 1.2;
+    color: #2c3e50;
+}
+
+.btn-phare {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #3498db;
+    color: #fff !important;
+    border-radius: 25px;
+    font-weight: bold;
+    align-self: flex-start;
+    transition: background 0.3s;
+}
+
+.btn-phare:hover {
+    background: #2980b9;
+}
+
+/* --- GRILLE DES FEATURES --- */
 .grid-features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
 }
 
 .card-feature {
-    background: white;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
 }
 
-.card-feature .media-feature {
+.card-feature:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: #3498db;
+}
+
+.media-feature {
     width: 100%;
-    height: 200px;
+    height: 180px;
+    margin: 15px 0;
+    border-radius: 6px;
     overflow: hidden;
-    border-radius: 4px;
-    margin-bottom: 15px;
 }
 
-.card-feature .media-feature img {
+.media-feature img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
 }
 
+.read-more {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #3498db;
+}
+
+/* --- SIDEBAR DYNAMIQUE --- */
 .section-sidebar {
-    flex: 2;
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
     border: 1px solid #eee;
-}
-.section-sidebar h2 {
-    font-size: 1.4rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #3498db; /* Barre de couleur sous le titre */
-    display: inline-block;
+    height: fit-content;
 }
 
-/* Liste des articles dans la sidebar */
-.section-sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.section-sidebar h3 {
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .section-sidebar li {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.section-sidebar li h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.section-sidebar li p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .article-phare {
+        flex-direction: column;
+    }
+    .media-phare {
+        height: 300px;
+        flex: none;
+    }
+    .main-layout {
+        flex-direction: column;
+    }
 }
 
 /* --- PAGE ARTICLE UNIQUE --- */

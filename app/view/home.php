@@ -8,94 +8,102 @@
 function html_home($lead, $features, $sidebar, $show_articles = true)
 {
     $out = '<div class="container-home">';
-    if ($show_articles) {
-    // --- 1. L'ARTICLE PHARE (LEAD) ---
-    if ($lead) {
-        $id_lead = $lead['ident_art'] ?? $lead['id'];
-        $title_lead = $lead['title_art'] ?? $lead['title'];
-        $hook_lead = $lead['hook_art'] ?? $lead['hook'] ?? "";
-        $image_name = $lead['image_art'] ?? "default.jpg"; //
 
-        $media_path = MEDIA_PATH . $image_name;
-        if ($image_name != "default.jpg") {
-            $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title_lead}'></div>";
-        } else {
-            $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
+    // --- 1. & 2. SECTION PRINCIPALE (LEAD + FEATURES) ---
+    if ($show_articles) {
+        // --- LEAD (Article phare) ---
+        if ($lead) {
+            $id_lead = $lead['ident_art'] ?? $lead['id'];
+            $title_lead = $lead['title_art'] ?? $lead['title'];
+            $hook_lead = $lead['hook_art'] ?? $lead['hook'] ?? "";
+            $image_lead = $lead['image_art'] ?? "default.jpg";
+            $media_path_lead = MEDIA_PATH . $image_lead;
+
+            $out .= <<< HTML
+            <section class="section-lead">
+                <article class="article-phare">
+                    <div class="media-phare">
+                        <img src="{$media_path_lead}" alt="{$title_lead}">
+                    </div>
+                    <div class="phare-content">
+                        <span class="badge">À la une</span>
+                        <h1>{$title_lead}</h1>
+                        <p>{$hook_lead}</p>
+                        <a href="?page=article&ident_art={$id_lead}" class="btn-phare">Lire l'article complet</a>
+                    </div>
+                </article>
+            </section>
+HTML;
         }
 
-        $out .= "
-        <section class='section-lead'>
-           <article class='article-phare'>
-              {$media}
-              <div class='phare-content'>
-                 <span class='badge'>À la une</span>
-                 <h1>{$title_lead}</h1>
-                 <p>{$hook_lead}</p>
-                 <a href='?page=article&ident_art=$id_lead' class='btn-phare'>Lire l'article complet</a>
-              </div>
-           </article>
-        </section>";
-    }
+        // --- FEATURES (Grille) ---
+        $out .= <<< HTML
+        <div class="main-layout">
+            <section class="section-features">
+                <h2>À la une cette semaine</h2>
+                <div class="grid-features">
+HTML;
 
-
-
-        $out .= '<div class="main-layout">';
-        $out .= '<section class="section-features">';
-        $out .= '<h2>À la une cette semaine</h2>';
-        $out .= '<div class="grid-features">';
         foreach ($features as $art) {
             $id = $art['ident_art'] ?? $art['id'];
             $title = $art['title_art'] ?? $art['title'];
             $hook = $art['hook_art'] ?? $art['hook'] ?? "";
-            $image_name = $art['image_art'] ?? "default.jpg"; //
-
+            $image_name = $art['image_art'] ?? "default.jpg";
             $media_path = MEDIA_PATH . $image_name;
-            if ($image_name == "default.jpg") {
-                $media = "<div class='media-phare'><img src='{$media_path}' alt='{$title}'></div>";
-            } else {
-                $media = "<div class='media-phare'><img src='{$media_path}' alt=''></div>";
-            }
-            $out .= "
-                 <article class='card-feature'>
-                    <h3>{$title}</h3>
-                    {$media}
-                    <p>{$hook}</p>
-                    <a href='?page=article&ident_art=$id' class='read-more'>En savoir plus -></a>
-                 </article>";
+
+            $out .= <<< HTML
+                    <article class="card-feature">
+                        <h3>{$title}</h3>
+                        <div class="media-feature">
+                            <img src="{$media_path}" alt="{$title}">
+                        </div>
+                        <p>{$hook}</p>
+                        <a href="?page=article&ident_art={$id}" class="read-more">En savoir plus </a>
+                    </article>
+HTML;
         }
-        $out .= '</div>';
-        $out .= '</section>';
-    }else {
-        $out .= "<div style='text-align:center; padding:20px; background:#eee; margin-bottom:20px; border-radius:8px;'>
-                    L'article phare et les articles principaux sont masqués.
-                 </div>";
+        $out .= '</div></section>';
+
+    } else {
+        // --- CAS MASQUÉ ---
+        $out .= <<< HTML
+        <div style="text-align:center; padding:20px; background:#eee; margin-bottom:20px; border-radius:8px;">
+            L'article phare et les articles principaux sont masqués.
+        </div>
+HTML;
     }
+
     // --- 3. LA SIDEBAR ---
-    $out .= '<aside class="section-sidebar">';
-    $out .= '<h3>Dernières minutes</h3>';
-    $out .= '<input type="checkbox" id="toggle-sidebar" class="sidebar-checkbox" hidden>';
-    $out .= '<ul>';
+    $sidebar_items = "";
     foreach ($sidebar as $index => $art) {
         $id = $art['ident_art'] ?? $art['id'];
         $title = $art['title_art'] ?? $art['title'];
         $hook = $art['hook_art'] ?? $art['hook'] ?? "";
         $hook_short = limit_words($hook, LIMIT_WORD_SIDEBAR);
-        $hidden = ($index > 1) ? 'class="hidden"' : '';
-        $out .= "
-                 <li {$hidden}>
-                    <a href='?page=article&ident_art=$id'>
-                       <h4>{$title}</h4>
-                       <p>{$hook_short}</p>
-                    </a>
-                 </li>";
-    }
-    $out .= '</ul>';
-    $out .= '<label for="toggle-sidebar" class="btn-sidebar btn-more">Lire plus</label>';
-    $out .= '<label for="toggle-sidebar" class="btn-sidebar btn-less">Lire moins</label>';
-    $out .= '</aside>';
+        $class = ($index > 1) ? 'class="hidden"' : '';
 
-    $out .= '</div>';
-    $out .= '</div>';
+        $sidebar_items .= <<< HTML
+            <li {$class}>
+                <a href="?page=article&ident_art={$id}">
+                    <h4>{$title}</h4>
+                    <p>{$hook_short}</p>
+                </a>
+            </li>
+HTML;
+    }
+
+    $out .= <<< HTML
+            <aside class="section-sidebar">
+                <h3>Dernières minutes</h3>
+                <input type="checkbox" id="toggle-sidebar" class="sidebar-checkbox" hidden>
+                <ul>
+                    {$sidebar_items}
+                </ul>
+                <label for="toggle-sidebar" class="btn-sidebar btn-more">Lire plus</label>
+                <label for="toggle-sidebar" class="btn-sidebar btn-less">Lire moins</label>
+            </aside>
+        </div> </div> 
+HTML;
 
     return $out;
 }
