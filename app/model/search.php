@@ -2,7 +2,7 @@
 /**
  * Recherche flexible : Mot-clé OU Auteur OU Les deux
  */
-function search($keyword = '', $limit = 10)
+function search($author='', $keyword = '', $limit = 10)
 {
 
     if (DATABASE_TYPE === "json") {
@@ -26,21 +26,26 @@ function search($keyword = '', $limit = 10)
         $where_clauses = [];
 
         if (!empty($keyword)) {
-            $where_clauses[] = "content_art LIKE :keyword";
+            $where_clauses[] = "a.content_art LIKE :keyword";
             $params['keyword'] = "%$keyword%";
+        }
+        if (!empty($author)) {
+            $where_clauses[] = "r.name_rep LIKE :author";
+            $params['author'] = "%$author%";
         }
 
         $where_sql = !empty($where_clauses) ? "WHERE " . implode(" AND ", $where_clauses) : "";
 
         $q = <<< SQL
             SELECT 
-                title_art ,
-                ident_art,
-                hook_art AS hook,
-                image_art
-            FROM `t_article`
+                a.title_art AS title_art,
+                a.ident_art AS ident_art,
+                a.hook_art AS hook,
+                a.image_art AS image_art
+            FROM t_article a
+            JOIN t_reporter r ON r.id_rep = a.reporter_art
             $where_sql
-            ORDER BY date_art DESC
+            ORDER BY a.date_art DESC
             LIMIT $limit
 SQL;
 
@@ -50,4 +55,10 @@ SQL;
 
         return [];
     }
+}
+function get_reporter(){
+// On récupère les noms uniques pour éviter les doublons dans la liste
+    $q = "SELECT DISTINCT name_rep FROM t_reporter ORDER BY name_rep ASC";
+
+    return db_select($q);
 }
