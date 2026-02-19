@@ -90,19 +90,20 @@ HTML;
     }
     return ob_get_clean();
 }
+function html_settings_button() {
+    return <<< HTML
+    <input type="checkbox" id="toggle-gear" class="gear-checkbox" hidden>
+    <label for="toggle-gear" class="btn-gear">⚙</label>
+HTML;
+}
+
 function form_start(){
-    $html = <<< HTML
-        <div>
-            <br>
-    HTML;
-    return $html;
+
+    return '<div id="form_settings">';
 }
 
 function form_end(){
-    $html = <<< HTML
-        </div>
-    HTML;
-    return $html;
+    return '</div>';
 }
 function html_foot()
 {
@@ -120,9 +121,9 @@ function html_foot()
 function form_font_color($font_color)
 {
     $html = <<< HTML
-    <div class="container-fluid mb-3">
+    <div class="form-color">
         <form method="POST">
-            <label>Sélectionnez la taille du texte :</label>
+            <label>Sélectionnez la couleur du texte :</label>
             <select id="text_color" name="text_color">
                 <option value="black" " . ($font_color === 'black' ? 'selected' : '') . ">Noir</option>
                 <option value="blue" " . ($font_color === 'blue' ? 'selected' : '') . ">Blue</option>
@@ -138,7 +139,7 @@ HTML;
 function form_border($border):string
 {
     $html = <<< HTML
-    <div class="container-fluid mb-3">
+    <div class="form-border">
         <form method="POST">
             <label>Sélectionnez le type de bordure :</label>
             <select id="border" name="border">
@@ -154,14 +155,23 @@ HTML;
     return $html;
 }
 function style_sheet_font_color($font_color = 'black') {
-
     $val = (in_array($font_color, ['black', 'blue', 'red'])) ? $font_color : 'black';
 
     return <<<HTML
     <style>
-        body{
+        /* On applique à la zone ET à tous ses descendants (titres, paragraphes) */
+        .container-home, .container-home *, 
+        .press-section, .press-section *, 
+        .search-page-layout, .search-page-layout *, 
+        .favorite, .favorite *,
+        .panier-style, .panier-style *,
+        .container, .container * 
+        
+        {
+        
+        
             color: $val !important;
-        } 
+        }
     </style>
 HTML;
 }
@@ -171,7 +181,12 @@ function style_sheet_border($border = DEFAULT_BORDER)
 
     $html = <<< HTML
 <style>
-body{
+        .container-home, 
+        .press-section, 
+        .search-page-layout,
+        .favorite,
+        .container
+        {
     border: $border_style !important;
 }
 </style>

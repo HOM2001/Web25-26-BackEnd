@@ -29,6 +29,7 @@ function ctrl_head()
     return join("\n", [
 
         html_head($menu),
+        html_settings_button(),
         form_start(),
         form_border($border),
         form_font_color($font_color),
