@@ -57,8 +57,18 @@ SQL;
     }
 }
 function get_reporter(){
-// On récupère les noms uniques pour éviter les doublons dans la liste
     $q = "SELECT DISTINCT name_rep FROM t_reporter ORDER BY name_rep ASC";
 
     return db_select($q);
 }
+function get_top_reporter(){
+    $q = "SELECT r.id_rep, r.name_rep, COUNT(a.id_art) as nb_articles
+          FROM t_reporter r
+          LEFT JOIN t_article a ON r.id_rep = a.reporter_art
+          GROUP BY r.id_rep
+          ORDER BY nb_articles DESC
+          LIMIT 1";
+
+    return db_select($q);
+}
+

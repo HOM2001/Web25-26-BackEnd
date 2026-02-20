@@ -1,11 +1,12 @@
 <?php
-function html_search_form($reporters = [])
+function html_search_form($reporters = [],$max_articles = 100)
 {
     $options_reporters = '<option value="">Tous les auteurs</option>';
     foreach ($reporters as $rep) {
         $name = $rep['name_rep'] ?? $rep['name'] ?? 'Inconnu';
         $options_reporters .= "<option value='$name'>$name</option>";
     }
+
 
     return <<< HTML
     <div class="search-page-layout">
@@ -23,7 +24,7 @@ function html_search_form($reporters = [])
             </div>  
             <div>
                 <label>Résultats max :</label>
-                <input name="limit" type="number" value="10" min="1" max="100">
+                <input name="limit" type="number" value="10" min="1" max="$max_articles">
             </div>
             <button type="submit">Lancer la recherche</button>    
         </form>
