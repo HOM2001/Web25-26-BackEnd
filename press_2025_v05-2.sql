@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : ven. 13 fév. 2026 à 11:08
+-- Généré le : ven. 20 fév. 2026 à 19:54
 -- Version du serveur : 8.0.44
 -- Version de PHP : 8.3.28
 
@@ -3190,7 +3190,7 @@ INSERT INTO `t_reporter` (`id_rep`, `name_rep`) VALUES
 CREATE TABLE `t_static_page` (
   `id_static` int NOT NULL,
   `name_static` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `title_static` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `title_static` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `content_static` text COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -3199,7 +3199,8 @@ CREATE TABLE `t_static_page` (
 --
 
 INSERT INTO `t_static_page` (`id_static`, `name_static`, `title_static`, `content_static`) VALUES
-(1, 'cgv', '<h2>Conditions Générales de Vente</h2>', '<p>Voici les CGV .....</p>');
+(1, 'about', 'Documentation des Fonctionnalites', '\r\n<main class=\"container-home\">\r\n    <section class=\"section-lead\">\r\n        <div class=\"phare-content\">\r\n            <h1>Documentation des Fonctionnalites</h1>\r\n        </div>\r\n    </section>\r\n\r\n    <div class=\"main-layout\">\r\n        <div class=\"grid-features\">\r\n            <article class=\"card-feature\">\r\n                <h3>Fonctionnalites Generales</h3>\r\n                <ul>\r\n                    <li><strong>Menu Dynamique :</strong> Navigation geree via une base de donnees.</li>\r\n                    <li><strong>Filtre Temps de Lecture :</strong> Menu deroulant listant les durees disponibles avec filtrage automatique au clic.</li>\r\n                    <li><strong>Gestion de la Une :</strong> Bouton permettant de masquer l\'article phare et les articles principaux.</li>\r\n                    <li><strong>Options de Style :</strong> Icone engrenage pour modifier la couleur du texte et les bordures via la Session.</li>\r\n                    <li><strong>Retour Intelligent :</strong> Bouton de retour contextuel sur chaque article complet vers la page d\'origine.</li>\r\n                </ul>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>Page d\'Accueil</h3>\r\n                <ul>\r\n                    <li><strong>Article Phare :</strong> Mise en avant du sujet majeur avec acces direct a la lecture.</li>\r\n                    <li><strong>Articles Principaux :</strong> Grille de 3 sujets cles avec liens \"En savoir plus\".</li>\r\n                    <li><strong>Categorie Specifique :</strong> Listing dedie aux articles de la categorie \"On n\'est pas des pigeons\".</li>\r\n                    <li><strong>Articles Secondaires :</strong> Systeme de liste extensible (2 articles visibles par defaut, passage a 6 via le bouton \"Lire plus/moins\").</li>\r\n                </ul>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>Page Press</h3>\r\n                <ul>\r\n                    <li><strong>Inventaire complet :</strong> Liste exhaustive des titres d\'articles.</li>\r\n                    <li><strong>Volume de donnees :</strong> Supporte 25 articles (JSON) ou 2625 articles (Database).</li>\r\n                    <li><strong>Statistiques :</strong> Compteur dynamique du nombre total d\'articles affiches.</li>\r\n                    <li><strong>Acces rapide :</strong> Titres cliquables pour une lecture immediate.</li>\r\n                </ul>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>Page Recherche</h3>\r\n                <ul>\r\n                    <li><strong>Filtres Avances :</strong> Recherche multi-criteres par mot-cle, auteur et limite de resultats.</li>\r\n                    <li><strong>Resultats en temps reel :</strong> Affichage du nombre d\'articles trouves et acces direct au contenu.</li>\r\n                </ul>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>Page Favoris</h3>\r\n                <ul>\r\n                    <li><strong>Catalogue :</strong> Grille de 100 articles avec visuels et titres.</li>\r\n                    <li><strong>Etoile Interactive :</strong> Icone de mise en favoris situee en haut a droite de chaque carte.</li>\r\n                    <li><strong>Liste de lecture :</strong> Recapitulatif dynamique (Titre + Temps de lecture).</li>\r\n                    <li><strong>Gestion du Panier :</strong> Suppression unitaire via croix rouge ou vidage complet de la liste.</li>\r\n                </ul>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>Pages Annexes</h3>\r\n                <ul>\r\n                    <li><strong>Page A Propos :</strong> Guide interactif des fonctionnalites (cette page).</li>\r\n                    <li><strong>Page CGV :</strong> Conditions Generales de Vente et d\'utilisation du service.</li>\r\n                </ul>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</main>'),
+(2, 'cgv', 'Conditions Générales d\'Utilisation', '\r\n<main class=\"container-home\">\r\n    <section class=\"section-lead\">\r\n        <div class=\"phare-content\">\r\n            <h1>Conditions Générales d\'Utilisation</h1>\r\n            <p>Dernière mise à jour : Février 2026</p>\r\n        </div>\r\n    </section>\r\n\r\n    <div class=\"main-layout\">\r\n        <div class=\"grid-features\">\r\n            <article class=\"card-feature\">\r\n                <h3>1. Mentions Légales</h3>\r\n                <p>Ce site est un projet pédagogique réalisé dans le cadre du module 4IPW3 (projet web). L\'édition et la maintenance technique sont assurées par les étudiants Hamid Owaiss et Imane Amane.</p>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>2. Propriété Intellectuelle</h3>\r\n                <p>Le code source MVC et le framework AWebWiz sont la propriété de monsieur Alain Wafflard. Les contenus médias (images et textes) sont utilisés uniquement à des fins d\'illustration dans un cadre scolaire.</p>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>3. Gestion des Préférences</h3>\r\n                <p>Le site utilise des variables de Session pour mémoriser vos choix de personnalisation (couleurs de police, style des bordures) ainsi que votre liste d\'articles favoris. Ces données sont éphémères.</p>\r\n            </article>\r\n\r\n            <article class=\"card-feature\">\r\n                <h3>4. Responsabilité technique</h3>\r\n                <p>L\'utilisateur est informé que le bon fonctionnement des options de présentation (bouton engrenage) dépend de l\'acceptation des cookies de session par le navigateur. Le site ne collecte aucune donnée personnelle.</p>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</main>');
 
 --
 -- Index pour les tables déchargées
@@ -3270,7 +3271,7 @@ ALTER TABLE `t_reporter`
 -- AUTO_INCREMENT pour la table `t_static_page`
 --
 ALTER TABLE `t_static_page`
-  MODIFY `id_static` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_static` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
