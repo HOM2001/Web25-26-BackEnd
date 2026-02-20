@@ -84,7 +84,7 @@ function html_panier_contenu($articles_selectionnes = []) {
     ob_start();
     ?>
     <div id="panier" class="panier-style">
-        <h2><i class="fas fa-shopping-cart"></i> Votre Liste de Lecture</h2>
+        <h2><i class="fas fa-shopping-cart"></i> Votre Liste de favoris </h2>
         <ul id="panier_contenu">
             <?php if (empty($articles_selectionnes)): ?>
                 <li>Votre panier est vide.</li>
