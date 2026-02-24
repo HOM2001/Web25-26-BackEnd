@@ -8,11 +8,8 @@ function get_press_list( $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     switch(DATABASE_TYPE) {
         case "json":
-            $content_s = file_get_contents('../asset/database/article.json');
-            $content_a = json_decode($content_s, true);
+            return get_json('', $order, $limit);
 
-
-            return array_slice($content_a, 0, $limit);
 
         case "MySql":
 
@@ -32,8 +29,7 @@ function get_press_article($ident)
             return ["error" => "L'ID $ident est invalide pour le format JSON. Le range possible est [1001 - 1020]."];
         }
 
-        $content_s = file_get_contents('../asset/database/article.json');
-        $all_articles = json_decode($content_s, true);
+        $all_articles = get_all_json_data();
 
         foreach ($all_articles as $art) {
             if ($art['id'] == $ident) {
@@ -58,7 +54,15 @@ function get_press_article($ident)
 
     return ["error" => "Article introuvable."];
 }
-function get_sql($category = null, $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+function get_data($category = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+{
+    if (DATABASE_TYPE === "json") {
+        return get_json($category, $order, $limit);
+    }elseif (DATABASE_TYPE === "MySql") {
+        return get_sql( $order, $limit);
+    }
+}
+function get_sql($category = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     $p = [];
     $where = "";
@@ -93,40 +97,87 @@ SQL;
 
     return (!empty($p)) ? db_select_prepare($q, $p) : db_select($q);
 }
+function get_json( $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
+{
+    $data = get_all_json_data();
 
-function get_lead_article($all_articles) {
-    return $all_articles[0] ?? null;
+    switch ($order) {
+        case 'random':
+            shuffle($data);
+            break;
+        case 'first':
+            usort($data, function ($a, $b) {
+                $id_a = isset($a['id']) ? $a['id'] : 0;
+                $id_b = isset($b['id']) ? $b['id'] : 0;
+                return $id_a <=> $id_b;
+            });
+            break;
+        case 'last':
+            usort($data, function ($a, $b) {
+                $id_a = isset($a['id']) ? $a['id'] : 0;
+                $id_b = isset($b['id']) ? $b['id'] : 0;
+                return $id_b <=> $id_a;
+            });
+            break;
+        case 'old':
+            usort($data, function ($a, $b) {
+
+                $date_a = isset($a['date']) ? strtotime($a['date']) : 0;
+                $date_b = isset($b['date']) ? strtotime($b['date']) : 0;
+                return $date_a <=> $date_b;
+            });
+            break;
+        case 'recent':
+        default:
+            usort($data, function ($a, $b) {
+                $date_a = isset($a['date']) ? strtotime($a['date']) : 0;
+                $date_b = isset($b['date']) ? strtotime($b['date']) : 0;
+                return $date_b <=> $date_a;
+            });
+            break;
+    }
+    return array_map(function ($item) {
+        return [
+            'title_art' => $item['title'] ?? 'Sans titre',
+            'ident_art' => $item['id'] ?? 0,
+            'hook' => $item['hook'] ?? '',
+            'image_art' => $item['image'] ?? '',
+            'name_cat' => $item['category'] ?? 'Général'
+        ];
+    }, $data);
+
 }
+    function get_lead_article($all_articles)
+    {
+        return $all_articles[0] ?? null;
+    }
 
 //
-function get_feature_article($all_articles) {
-    return array_slice($all_articles, 1, 3);
-}
-
-
-function get_sidebar_article($all_articles,$limit) {
-    return array_slice($all_articles, 4, $limit-4);
-}
-
-function get_article_count()
-{
-    if (DATABASE_TYPE === "json") {
-        $path = '../asset/database/article.json';
-
-        if (!file_exists($path)) return 0;
-
-        $content_s = file_get_contents($path);
-        $articles = json_decode($content_s, true);
-
-        return is_array($articles) ? count($articles) : 0;
-    }
-    elseif (DATABASE_TYPE === "MySql") {
-        $q = "SELECT COUNT(*) AS total FROM t_article";
-        $res = db_select($q);
-        return (int)($res[0]['total'] ?? 0);
+    function get_feature_article($all_articles)
+    {
+        return array_slice($all_articles, 1, 3);
     }
 
-    return 0;
+
+    function get_sidebar_article($all_articles, $limit)
+    {
+        return array_slice($all_articles, 4, $limit - 4);
+    }
+
+    function get_article_count()
+    {
+        if (DATABASE_TYPE === "json") {
+            $articles = get_all_json_data();
+
+            return is_array($articles) ? count($articles) : 0;
+        } elseif (DATABASE_TYPE === "MySql") {
+            $q = "SELECT COUNT(*) AS total FROM t_article";
+            $res = db_select($q);
+            return (int)($res[0]['total'] ?? 0);
+        }
+
+        return 0;
+
 }
 
 

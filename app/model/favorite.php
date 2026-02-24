@@ -9,8 +9,7 @@ function get_panier(){
             $articles_complets = db_select($sql);
 
         } elseif (DATABASE_TYPE === "json") {
-            $content_s = file_get_contents('../asset/database/article.json');
-            $all_articles = json_decode($content_s, true);
+            $all_articles = get_all_json_data();
 
             $articles_filtres = array_filter($all_articles, function($item) {
 

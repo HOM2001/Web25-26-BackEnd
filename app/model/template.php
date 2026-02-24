@@ -42,3 +42,12 @@ function limit_words($text, $limit) {
     }
     return $text;
 }
+function get_all_json_data(){
+    $path = '../asset/database/article.json';
+    if (!file_exists($path)) return [];
+
+    $content_s = file_get_contents($path);
+    $content_a = json_decode($content_s, true);
+    return $content_a;
+
+}

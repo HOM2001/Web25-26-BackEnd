@@ -14,7 +14,17 @@ function main_home():string
     $order = 'recent' ?? DEFAULT_ORDER;
     $limit = 10 ?? DEFAULT_LIMIT;
     $category = "on n'est pas des pigeons";
-    $all_articles = get_sql($category,$order,$limit);
+
+    $pigeon_articles = get_data($category, $order, $limit);
+
+    if (!empty($pigeon_articles)) {
+
+        $category_info = $category;
+    } else {
+
+        $category_info = "";
+    }
+    $all_articles = get_data($category_info, $order, $limit);
     $lead = get_lead_article($all_articles);
     $features = get_feature_article( $all_articles);
     $sidebar = get_sidebar_article( $all_articles,$limit);

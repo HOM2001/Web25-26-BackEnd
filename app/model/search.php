@@ -6,12 +6,7 @@ function search($author='', $keyword = '', $limit = 10)
 {
 
     if (DATABASE_TYPE === "json") {
-        $path = '../asset/database/article.json';
-        if (!file_exists($path)) return [];
-
-        $content_s = file_get_contents($path);
-        $content_a = json_decode($content_s, true);
-
+       $content_a = get_all_json_data();
         if (!empty($keyword)) {
             $content_a = array_filter($content_a, function($article) use ($keyword) {
 
