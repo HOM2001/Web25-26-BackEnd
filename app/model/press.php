@@ -57,9 +57,9 @@ function get_press_article($ident)
 function get_data($category = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)
 {
     if (DATABASE_TYPE === "json") {
-        return get_json($category, $order, $limit);
+        return get_json($order, $limit);
     }elseif (DATABASE_TYPE === "MySql") {
-        return get_sql( $order, $limit);
+        return get_sql($category,$order, $limit);
     }
 }
 function get_sql($category = '', $order = DEFAULT_ORDER, $limit = DEFAULT_LIMIT)

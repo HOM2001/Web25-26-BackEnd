@@ -1,13 +1,24 @@
 <?php
 function html_search_form($reporters = [],$max_articles = 100)
 {
-    $options_reporters = '<option value="">Tous les auteurs</option>';
-    foreach ($reporters as $rep) {
-        $name = $rep['name_rep'] ?? $rep['name'] ?? 'Inconnu';
-        $options_reporters .= "<option value='$name'>$name</option>";
+    $author_select_html = "";
+
+    if (DATABASE_TYPE == "MySql") {
+        $options_reporters = '<option value="">Tous les auteurs</option>';
+        foreach ($reporters as $rep) {
+            $name = $rep['name_rep'] ?? $rep['name'] ?? 'Inconnu';
+            $options_reporters .= "<option value='$name'>$name</option>";
+        }
+
+        $author_select_html = <<< HTML
+            <div>
+                <label>Auteur :</label>
+                <select name="author">
+                    $options_reporters
+                </select>
+            </div>
+HTML;
     }
-
-
     return <<< HTML
     <div class="search-page-layout">
         <form method="post" action="?page=search" class="search-form">
@@ -16,12 +27,7 @@ function html_search_form($reporters = [],$max_articles = 100)
                 <label>Mot-clé :</label>
                 <input name="keyword" type="text" placeholder="Ex : France">
             </div> 
-            <div>
-                <label>Auteur :</label>
-                <select name="author">
-                    $options_reporters
-                </select>
-            </div>  
+            {$author_select_html}
             <div>
                 <label>Résultats max :</label>
                 <input name="limit" type="number" value="10" min="1" max="$max_articles">

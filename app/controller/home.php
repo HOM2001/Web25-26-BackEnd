@@ -16,7 +16,6 @@ function main_home():string
     $category = "on n'est pas des pigeons";
 
     $pigeon_articles = get_data($category, $order, $limit);
-
     if (!empty($pigeon_articles)) {
 
         $category_info = $category;
