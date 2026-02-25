@@ -3,11 +3,11 @@
  * Display a cart for add favorite article in the cart
  */
 function html_panier_favorite() : string{
+    $total_articles = get_article_count();
     if(DATABASE_TYPE === 'MySql'){
-        $articles = get_sql('','',100);
+        $articles = get_sql('','recent',100);
     }elseif (DATABASE_TYPE === 'json') {
-        $content_s = file_get_contents('../asset/database/article.json');
-        $content_a = json_decode($content_s, true);
+        $content_a = get_all_json_data();
 
         $articles  = array_slice($content_a, 0, 20);
 
@@ -65,12 +65,10 @@ HTML;
 
 }
 function html_panier_contenu($articles_selectionnes = []) {
-
     if(DATABASE_TYPE === 'MySql'){
-        $all_articles = get_sql('',100);
+        $all_articles = get_sql('', 'recent',100);
     }elseif (DATABASE_TYPE === 'json') {
-        $content_s = file_get_contents('../asset/database/article.json');
-        $content_a = json_decode($content_s, true);
+        $content_a = get_all_json_data();
 
         $all_articles  = array_slice($content_a, 0, 20);
 
@@ -84,7 +82,7 @@ function html_panier_contenu($articles_selectionnes = []) {
     ob_start();
     ?>
     <div id="panier" class="panier-style">
-        <h2><i class="fas fa-shopping-cart"></i> Votre Liste de favoris </h2>
+        <h2> Votre Liste de favoris </h2>
         <ul id="panier_contenu">
             <?php if (empty($articles_selectionnes)): ?>
                 <li>Votre panier est vide.</li>
@@ -103,10 +101,10 @@ function html_panier_contenu($articles_selectionnes = []) {
                         </div>
                     </li>
                 <?php endforeach; ?>
-                <li class="total-pigeons">
+                <div class="">
                     <hr>
                     <a href="?page=favorite&action=clear" class="btn-delete">Vider le panier</a>
-                </li>
+                </div>
             <?php endif; ?>
         </ul>
     </div>

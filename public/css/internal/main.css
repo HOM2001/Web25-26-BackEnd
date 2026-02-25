@@ -737,7 +737,7 @@ main article.main_article {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre transparent */
+    background-color: lightblue;
     color: white;
     padding: 2px 8px;
     border-radius: 4px;
