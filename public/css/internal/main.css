@@ -318,7 +318,7 @@ button:active {
     transition: transform 0.3s ease;
 }
 
-/* Bouton engrenage pour les options */
+/* Animation de rotation au survol */
 .btn-gear:hover {
     background-color: #3498db;
     transform: rotate(45deg);
@@ -340,7 +340,7 @@ button:active {
     display: none;
 }
 
-/* Montre le formulaire si checkbox cochée */
+/* LOGIQUE SANS JS : Si la checkbox est cochée, on montre le formulaire */
 .gear-checkbox:checked ~ #form_settings {
     display: block;
 }
@@ -481,14 +481,14 @@ main article.main_article {
     display: flex;
     max-width: 1200px;
     margin: 30px auto;
-    gap: 40px;
+    gap: 40px; /* Espace entre les deux colonnes */
     padding: 0 20px;
-    align-items: flex-start;
+    align-items: flex-start; /* Aligne le haut des deux blocs */
 }
 
-/* Filtre de recherches  */
+/* 2. LA COLONNE GAUCHE (Le Formulaire) */
 .search-form {
-    flex: 1;
+    flex: 1; /* Prend 1 part de l'espace */
     background: #fff;
     padding: 25px;
     border: 1px solid #ddd;
@@ -520,8 +520,8 @@ main article.main_article {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 20px;
-    box-sizing: border-box;
+    border-radius: 20px; /* Style arrondi comme ton menu */
+    box-sizing: border-box; /* Évite que l'input dépasse */
 }
 
 .search-form button {
@@ -540,9 +540,9 @@ main article.main_article {
     background: #2980b9;
 }
 
-/* La colonne de droite avec les résultat */
+/* 3. LA COLONNE DROITE (Les Résultats) */
 .result-column {
-    flex: 2;
+    flex: 2; /* Prend 2 parts de l'espace (plus large) */
 }
 
 .result-column h2 {
@@ -737,19 +737,20 @@ main article.main_article {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: #F8F9FA !important;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre transparent */
     color: white;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: bold;
     z-index: 5;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px); /* Effet de flou derrière le numéro */
 }
 
 .btn-sidebar.btn-less, .hidden {
     display: none;
 }
+/* Style basique du bouton (ton code) */
 .btn-sidebar {
     display: inline-block;
     margin-top: 10px;
@@ -778,8 +779,7 @@ main article.main_article {
 .btn-sidebar:hover {
     background: #ddd;
 }
-/* Formulaire  des temps de lectures */
-.menu-readtime-form {
+.menu-reading-form {
     background-color: #333;
     padding: 10px 0 20px 0;
     margin: 0;
@@ -787,7 +787,7 @@ main article.main_article {
     border-radius: 0;
 }
 
-.menu-readtime-form select {
+.menu-reading-form select {
     background-color: #444;
     color: #fff;
     padding: 8px 15px;
@@ -804,20 +804,20 @@ main article.main_article {
     text-align-last: center;
 }
 
-.menu-readtime-form select:hover {
+.menu-reading-form select:hover {
     border-color: #3498db; /
     background-color: #555;
 }
 
 
-.menu-readtime-form select option {
+.menu-reading-form select option {
     background-color: #333;
     color: #fff;
     padding: 10px;
 }
 
 
-.menu-readtime-form select option:disabled {
+.menu-reading-form select option:disabled {
     color: #888;
 }
 
@@ -834,8 +834,7 @@ main article.main_article {
     margin-top: 5px;
 
 }
-/* Liste du formulaire des temps de lecture */
-.menu-readtime {
+.menu-tools {
     display: flex;
     align-items: center;
     padding: 10px;
