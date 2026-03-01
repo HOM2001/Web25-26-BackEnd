@@ -63,7 +63,7 @@ HTML;
     <!DOCTYPE html>
     <html lang="fr">
     <head>
-        <title>AWebWiz Template (MVC)</title>
+        <title>The last news </title>
         <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css" />
         <link rel="stylesheet" href="./css/internal/main.css" />
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -74,8 +74,7 @@ HTML;
     <body>
     <header>
         <h1>
-            France 24 (MVC)
-            <img src="./icon/icon3.png">
+            The Last News
         </h1>
         <?=$menu_s?>
 
