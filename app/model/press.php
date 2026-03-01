@@ -37,7 +37,7 @@ function get_press_article($ident)
             }
         }
     } else {
-        // Range MySQL : 0 à 2924
+        // Range MySQL : 0 à 2924 avec certains id manquant max 2625
         if ($ident < 0 || $ident > 2924) {
             return ["error" => "L'ID $ident est invalide pour MySQL. Le range possible est [0 - 2924]."];
         }

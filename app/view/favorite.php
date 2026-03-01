@@ -6,8 +6,7 @@ function html_panier_favorite() : string{
     if(DATABASE_TYPE === 'MySql'){
         $articles = get_sql('','',100);
     }elseif (DATABASE_TYPE === 'json') {
-        $content_s = file_get_contents('../asset/database/article.json');
-        $content_a = json_decode($content_s, true);
+        $content_a = get_all_json_data();
 
         $articles  = array_slice($content_a, 0, 20);
 
@@ -28,7 +27,7 @@ function html_panier_favorite() : string{
                 $display_id = $key+1;
                 $id = $item['ident_art'] ?? $item['id'];
                 $title = $item['title_art'] ?? $item['title'];
-                $image_name = $item['image_art']   ?? "default.jpg"; // Corrigé : $lead au lieu de $art_a
+                $image_name = $item['image_art']   ?? "default.jpg";
 
                 $media = "";
                 if (!empty($image_name)){
@@ -38,13 +37,13 @@ function html_panier_favorite() : string{
                 // On vérifie si l'article est déjà dans le panier
                 $is_favorite = in_array($id, $_SESSION['panier']);
 
-                // Si favori -> la classe est 'active' (jaune), sinon 'inactive' (transparent)
-                // On change aussi l'action : si déjà là, le prochain clic l'enlève (remove)
+                // Si favori -> la classe est active (jaune) sinon transparent
                 $class = $is_favorite ? 'active' : 'inactive';
+                // changement de la classe premier click add second click remove
                 $action = $is_favorite ? 'remove' : 'add';
                 echo <<<HTML
     <div class="article-container">
-    <span class="article-number">{$display_id}</span>
+    <span class="article-number">#{$display_id}</span>
         <a href="?page=favorite&action={$action}&id={$id}" class="btn-star-toggle {$class}">
             ★
         </a>
@@ -69,8 +68,7 @@ function html_panier_contenu($articles_selectionnes = []) {
     if(DATABASE_TYPE === 'MySql'){
         $all_articles = get_sql('',100);
     }elseif (DATABASE_TYPE === 'json') {
-        $content_s = file_get_contents('../asset/database/article.json');
-        $content_a = json_decode($content_s, true);
+        $content_a = get_all_json_data();
 
         $all_articles  = array_slice($content_a, 0, 20);
 

@@ -36,7 +36,7 @@ function html_home($lead, $features, $sidebar, $show_articles = true)
 HTML;
         }
 
-        // --- FEATURES (Grille) ---
+        // --- FEATURES ( Articles secondaires ) ---
         $out .= <<< HTML
         <div class="main-layout">
             <section class="section-features">
@@ -73,7 +73,7 @@ HTML;
 HTML;
     }
 
-    // --- 3. LA SIDEBAR ---
+    // --- 3. LA SIDEBAR ( Artciles secondaires) ---
     $sidebar_items = "";
     foreach ($sidebar as $index => $art) {
         $id = $art['ident_art'] ?? $art['id'];

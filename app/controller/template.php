@@ -21,8 +21,8 @@ function ctrl_head()
     if (isset($_POST['set_border'])) {
         $_SESSION['border'] = $_POST['border'];
     }
-    $font_color = $_SESSION['text_color'];
-    $border = $_SESSION['border'];
+    $font_color = $_SESSION['text_color'] ?? DEFAULT_FONT_COLOR;
+    $border = $_SESSION['border'] ?? DEFAULT_BORDER;
 
 
     $menu = get_menu();

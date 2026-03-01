@@ -1,5 +1,5 @@
 <?php
-function get_reading_times() {
+function get_readtimes() {
 
     $sql = "SELECT DISTINCT (readtime_art) 
             FROM t_article 

@@ -28,7 +28,7 @@ HTML;
         }
     }
     $options_s = "";
-    $times = get_reading_times() ?: [] ;
+    $times = get_readtimes() ?: [] ;
     $current_time = $_GET['time'] ?? null;
     foreach ($times as $t) {
         $m = $t['readtime_art'];
@@ -42,8 +42,8 @@ HTML;
 
 
     $menu_s .= <<< HTML
-    <li class="menu-tools">
-        <form action="index.php" method="get" class="menu-reading-form" style="display:inline;">
+    <li class="menu-readtime">
+        <form action="index.php" method="get" class="menu-readtime-form" style="display:inline;">
             <input type="hidden" name="page" value="readtime">
             <select name="time" onchange="this.form.submit()">
                 <option value="" >Temps de lecture</option>
@@ -159,7 +159,7 @@ function style_sheet_font_color($font_color = 'black') {
 
     return <<<HTML
     <style>
-        /* On applique à la zone ET à tous ses descendants (titres, paragraphes) */
+        /* Appliquer le css au balise + a tous les elements dans ces balises */
         .container-home, .container-home *, 
         .press-section, .press-section *, 
         .search-page-layout, .search-page-layout *, 
