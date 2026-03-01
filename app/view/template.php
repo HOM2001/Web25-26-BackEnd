@@ -107,17 +107,22 @@ function form_end(){
 }
 function html_foot()
 {
-	ob_start();
-	?>
-        <hr />
-        <footer>
-            Made with the amazing AWebWiz framework
-<footer>
-	</body>
-	</html>
-	<?php
-	return ob_get_clean();
+    $annee = date('Y');
+
+    return <<< HTML
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; $annee - Tous droits réservés</p>
+            <p class="credits">
+                Développé avec passion par <strong>Hamid Owaiss</strong> & <strong>Imane Amane</strong> <br> Avec le framework AWebZiz de Monsieur <Strong>Alain Wafflard</Strong>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+HTML;
 }
+
 function form_font_color($font_color)
 {
     $html = <<< HTML
